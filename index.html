@@ -44,7 +44,7 @@ h2{font-size:15px;margin:28px 0 12px;font-weight:800}
 .gl{margin:0 0 12px}.gl dt{font-weight:700;color:#111;margin-top:10px}.gl dd{margin:2px 0 0}
 .wh{font-weight:900;font-size:26px;letter-spacing:.01em}.ws{font-size:16px;font-weight:700;letter-spacing:.04em;color:#6b6b6b;margin-top:4px}
 .wl{display:flex;gap:12px;align-items:baseline;padding:12px 0;border-bottom:1px solid #E5E5E5;font-size:20px;font-weight:600}.wl:last-child{border:0}.wb{margin-top:8px}#s2 .wb,#s4 .wb,#s5 .wb{margin-top:14px;padding-top:6px;border-top:1px solid #CFCFCF}.wl b{font-weight:900;min-width:64px;font-size:24px}
-.note{font-size:14px;color:#555;line-height:1.6;margin-top:12px}.note .bl{display:flex;gap:.45em}.note .bl span:first-child{flex:none}
+.note{font-size:14px;color:#555;line-height:1.6;margin-top:12px}.note .bl{display:flex;gap:.45em}#s6 .note{color:#E60000;word-break:keep-all}.note .bl span:first-child{flex:none}
 .cd{align-items:center;justify-content:center;text-align:center}.cd .cl{font-weight:800;letter-spacing:.12em;font-size:20px}
 .cn{font-weight:900;font-size:min(48vw,210px);line-height:1;font-variant-numeric:tabular-nums;animation:pop .45s ease}
 @keyframes pop{from{transform:scale(1.25);opacity:.2}to{transform:none;opacity:1}}
@@ -132,7 +132,7 @@ h2{font-size:15px;margin:28px 0 12px;font-weight:800}
 <div class="zm"><span>확대</span><input type="range" id="zm" min="1" max="3" step=".01" value="1" aria-label="사진 확대"></div>
 <div class="sp"></div>
 <button class="b p bl" id="dl" style="margin-top:14px">이미지 저장</button>
-<button class="b bl" id="nw" style="margin-top:8px">새 운동 시작하기</button>
+<button class="b bl" id="nw" style="margin-top:8px">처음으로 돌아가기</button>
 <footer class="ft">Engineered by © KYE3<br>All right reserved kye3.com</footer>
 </section>
 </div>
@@ -399,7 +399,7 @@ $('#bk6').onclick=()=>go(5);
 const goHome=e=>{const a=e.target.closest('.hl');if(!a)return;e.preventDefault();
  modal('카이3 공식 홈페이지로 이동할까요?','현재 화면은 저장되지 않습니다.',[['취소'],['이동하기',()=>{location.href='https://kye3.com'},1]],'','sm')};
 document.addEventListener('click',goHome);document.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')goHome(e)});
-$('#nw').onclick=()=>modal('새 운동을 시작할까요?','현재 운동 기록과 사진이 삭제됩니다.',[['취소'],['새로 시작',()=>{reset();go(1)},1]],'','sm');
+$('#nw').onclick=()=>modal('첫 화면으로 돌아갈까요?','현재 운동 기록과 사진이 삭제됩니다.',[['취소'],['처음으로 돌아가기',()=>{reset();go(1)},1]],'','sm');
 syncChips();syncDur();$('#wp').scrollTop=S.dur*WH;
 /* ===== intro popup on the first screen ===== */
 (function(){const p=$('#pop'),close=()=>p.classList.remove('on');
