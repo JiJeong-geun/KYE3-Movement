@@ -239,7 +239,7 @@ function bLADDER(pool,I,T){
  for(let s=6;s<=30;s++)for(let st=1;st<=6;st++){const g=[];for(let x=s;x>=2;x-=st)g.push(x);if(g.length<3||g.length>10||g[0]>cap)continue;
   const tot=sum(g.map(x=>x*S1+n*I.tr))+(g.length-1)*I.rr,err=Math.abs(tot-T);c.push({g,tot,err,sc:(OK(err,T)?0:1e6+err)+Math.random()})}
  const b=best1(c);if(!b)return null;const asc=Math.random()<.3,g=asc?b.g.slice().reverse():b.g;
- return fin({fmt:'LADDER',head:(asc?'ASCENDING':'DESCENDING')+' LADDER',sub:g.join('-')+' / 단계 사이 휴식 '+I.rr+'초',lines:es.map(e=>({r:'',n:e.name}))},es,b.tot,b.err,T)}
+ return fin({fmt:'LADDER',head:(asc?'ASCENDING':'DESCENDING')+' LADDER',sub:g.join('-'),lines:es.map(e=>({r:'',n:e.name}))},es,b.tot,b.err,T)}
 function bEMOM(pool,I,T){
  const nu=pool.filter(e=>!e.unit),base=nu.length>=6?nu:pool,mw=I.i<=1?40:50,c=[];
  for(const n of sh(T<=300?[3,4]:[3,4,5,6])){const es=pickEx(base,n,I.i);if(es.length<3)continue;const m=Math.max(n,Math.round(T/60/n)*n);
