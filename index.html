@@ -124,7 +124,7 @@ h2{font-size:15px;margin:28px 0 12px;font-weight:800}
 </section>
 
 <section class="s" id="s6">
-<header class="h hc"><button class="bk" id="bk6" type="button" aria-label="이전 화면으로 돌아가기"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></button><span>운동 인증하기</span></header>
+<header class="h hc"><button class="bk" id="bk6" type="button" aria-label="이전 화면으로 돌아가기"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></button><span>운동 기록</span></header>
 <div class="pv"><button class="ar" id="prev" aria-label="이전 디자인"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></button><div id="pvw"><div id="cw"><div id="card"><canvas id="bgc" width="1080" height="1920"></canvas><div id="ov"></div></div></div></div><button class="ar" id="next" aria-label="다음 디자인"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button></div>
 <div class="ind" id="ind"><b>01</b> / 07</div>
 <div class="ctl"><label class="b bl">인증 사진 촬영<input type="file" accept="image/*" capture="environment" id="cam" hidden></label><label class="b bl">사진첩에서 선택<input type="file" accept="image/*" id="upl" hidden></label><button class="b bl" id="rm">삭제</button></div>
@@ -336,7 +336,7 @@ function loop(){cancelAnimationFrame(raf);const f=()=>{paint();if($('#s4').class
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&$('#s4').classList.contains('on')){paint();loop();lock()}});
 $('#pp').onclick=()=>{if(sw.run){sw.acc+=Date.now()-sw.at;sw.run=false;try{wl&&wl.release()}catch(e){}}else{sw.at=Date.now();sw.run=true;lock()}paint()};
 $('#stop').onclick=()=>modal('운동을 종료할까요?','운동을 마치고 결과를 확인하시겠어요?',[['계속 운동하기'],['운동 종료',finish,1]],'','sm');
-function finish(){if(sw.run){sw.acc+=Date.now()-sw.at;sw.run=false}try{wl&&wl.release()}catch(e){}cancelAnimationFrame(raf);S.ms=sw.acc;S.end=new Date();beep(660,.15);renderS5();go(5);S.auto=setTimeout(()=>{if($('#s5').classList.contains('on')){go(6);const n=$('#s6');n.classList.add('fi');n.addEventListener('animationend',()=>n.classList.remove('fi'),{once:true})}},5000)}
+function finish(){if(sw.run){sw.acc+=Date.now()-sw.at;sw.run=false}try{wl&&wl.release()}catch(e){}cancelAnimationFrame(raf);S.ms=sw.acc;S.end=new Date();beep(660,.15);renderS5();go(5);S.auto=setTimeout(()=>{if($('#s5').classList.contains('on')){go(6);$('#s6').classList.add('fi')}},7000)}
 /* ===== STEP 5 ===== */
 function renderS5(){const t=Math.floor(S.ms/1000);$('#rt').textContent=fmt(S.ms);
  $('#rd').textContent=fdtKo(S.start);
