@@ -70,7 +70,7 @@ h2{font-size:15px;margin:28px 0 12px;font-weight:800}
 #ov .rt{font-weight:400;line-height:1.45;overflow-wrap:anywhere}#ov .rt b{display:block;font-weight:900;letter-spacing:.04em;margin-bottom:2px}#ov .rt i{display:block;font-style:normal;margin-bottom:3px}
 #ov .bt{border-top:1px solid rgba(255,255,255,.7);padding-top:10px}
 .ctl{display:grid;grid-template-columns:1fr 1fr auto;align-items:center;gap:8px;margin-top:14px}.ctl .b{white-space:nowrap;letter-spacing:0;padding:0 4px}.ctl #rm{width:auto;min-width:52px;padding:0 10px;border-color:#A0A0A0;font-weight:400}.ctl label.b{display:flex;align-items:center;justify-content:center;cursor:pointer}
-.zm{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:13px;font-weight:800;letter-spacing:.04em}.zm input{flex:1;accent-color:#000}
+.zm{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:13px;font-weight:800;letter-spacing:.04em}.zm input{flex:1;accent-color:#000}#s6 h2+.ctl{margin-top:0}#s6 .zm{margin-top:26px}.zm span{white-space:nowrap;flex:none}.zm input{min-width:0}
 .ind .nm{display:block;font-weight:400;letter-spacing:0;margin-top:2px}
 .ind b{font-weight:900}
 .ind{text-align:center;font-weight:400;letter-spacing:.04em;margin:12px 0 2px;font-size:15px}
@@ -127,9 +127,10 @@ h2{font-size:15px;margin:28px 0 12px;font-weight:800}
 <header class="h hc"><button class="bk" id="bk6" type="button" aria-label="이전 화면으로 돌아가기"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></button><span>운동 기록</span></header>
 <div class="pv"><button class="ar" id="prev" aria-label="이전 디자인"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></button><div id="pvw"><div id="cw"><div id="card"><canvas id="bgc" width="1080" height="1920"></canvas><div id="ov"></div></div></div></div><button class="ar" id="next" aria-label="다음 디자인"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button></div>
 <div class="ind" id="ind"><b>01</b> / 07</div>
-<div class="ctl"><label class="b bl">인증 사진 촬영<input type="file" accept="image/*" capture="environment" id="cam" hidden></label><label class="b bl">사진첩에서 선택<input type="file" accept="image/*" id="upl" hidden></label><button class="b bl" id="rm">삭제</button></div>
+<h2 style="margin:20px 0 10px">배경 바꾸기</h2>
+<div class="ctl"><label class="b bl">직접 사진 촬영<input type="file" accept="image/*" capture="environment" id="cam" hidden></label><label class="b bl">사진첩에서 선택<input type="file" accept="image/*" id="upl" hidden></label><button class="b bl" id="rm">삭제</button></div>
 <div class="note"><div class="bl"><span>·</span><span>@kye3_official 계정을 태그하면 저희도 함께 공유해드려요.</span></div><div class="bl"><span>·</span><span>사진은 내 기기에만 저장됩니다.</span></div></div>
-<div class="zm"><span>확대</span><input type="range" id="zm" min="1" max="3" step=".01" value="1" aria-label="사진 확대"></div>
+<div class="zm"><span>사진 확대</span><input type="range" id="zm" min="1" max="3" step=".01" value="1" aria-label="사진 확대"></div>
 <div class="sp"></div>
 <button class="b p bl" id="dl" style="margin-top:14px">이미지 저장</button>
 <button class="b bl" id="nw" style="margin-top:8px">처음으로 돌아가기</button>
@@ -359,7 +360,7 @@ const TPL=[
  d=>sc(1,190)+sc(0,380)+`<div class="a" style="left:20px;top:56px;bottom:62px;width:2px;background:rgba(255,255,255,.85)"></div><div class="a" style="top:56px;right:24px;text-align:right"><div class="lg">KYE3</div><div class="lb" style="line-height:1.8;margin-top:8px">${esc(d.dt)}<br>${esc(d.int)}</div></div><div class="a" style="left:36px;right:24px;bottom:62px"><div class="tm" style="font-size:${d.t.length>5?76:100}px;margin:0 0 12px;letter-spacing:-4px">${d.t}</div>${rtH(d,.95)}</div>`,
  d=>sc(1,300)+sc(0,300)+`<div class="a" style="top:96px;left:0;right:0;text-align:center"><div style="font-weight:900;font-size:78px;letter-spacing:10px;padding-left:10px;line-height:1">KYE3</div><div style="width:48px;height:2px;background:#fff;margin:14px auto 0"></div><div class="tm" style="font-size:44px;margin-top:18px">${d.t}</div></div><div class="a" style="left:30px;right:30px;bottom:66px;text-align:center"><div class="lb" style="margin-bottom:10px">${esc(d.dt)} / ${esc(d.int)}</div>${rtI(d)}<div style="font-weight:800;font-size:10px;letter-spacing:.24em;margin-top:12px">${esc(d.msg)}</div></div>`
 ];
-const NAMES=['미니멀 클래식','볼드 타이포그래피','에디토리얼 그리드','데이터 중심','센터 스테이트먼트','비대칭 레이아웃','프리미엄 시그니처'];
+const NAMES=['미니멀 클래식','볼드 타이포그래피','에디토리얼 그리드','데이터 블록','센터 스테이트먼트','다이나믹 레이아웃','프리미엄 시그니처'];
 function renderCard(anim){const o=$('#ov');o.innerHTML=TPL[S.tpl-1](data());{const t=$('#t2t'),b=$('#t2b');if(t&&b){let f=parseFloat(t.style.fontSize);while(f>70&&t.offsetTop+t.offsetHeight>b.offsetTop-14){f-=4;t.style.fontSize=f+'px'}}}if(anim){o.classList.remove('sw2');void o.offsetWidth;o.classList.add('sw2');o.addEventListener('animationend',()=>o.classList.remove('sw2'),{once:true})}$('#ind').innerHTML='<b>'+two(S.tpl)+'</b> / 07<span class="nm">'+NAMES[S.tpl-1]+'</span>';try{localStorage.setItem('kye3tpl',S.tpl)}catch(e){}}
 function setTpl(n){S.tpl=((n-1+7)%7)+1;renderCard(true)}
 $('#prev').onclick=()=>setTpl(S.tpl-1);$('#next').onclick=()=>setTpl(S.tpl+1);
