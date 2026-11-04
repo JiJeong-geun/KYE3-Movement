@@ -38,12 +38,12 @@ h2{font-size:15px;margin:28px 0 12px;font-weight:800}
 .hp .note{margin:0 0 14px}
 #s2 .hp summary{font-size:14px}
 .wod{background:#F5F5F5;padding:22px 18px;margin:16px 0;border-radius:4px}
-#s2 .wh,#s4 .wh,#s5 .rc{margin-top:20px}#s5 .wh{font-size:20px}#s2 .ws,#s4 .ws,#s5 .ws{font-size:14px}#s2 .wl,#s4 .wl,#s5 .wl{font-size:16px;padding:9px 0}#s2 .wl b,#s4 .wl b,#s5 .wl b{font-size:16px;min-width:52px}
+#s5 .rc{margin-top:20px}#s2 .wh,#s4 .wh,#s5 .wh{font-size:20px}#s2 .ws,#s4 .ws,#s5 .ws{font-size:14px}#s2 .wl,#s4 .wl,#s5 .wl{font-size:16px;padding:9px 0}#s2 .wl b,#s4 .wl b,#s5 .wl b{font-size:16px;min-width:52px}
 #s4 .hp{border-top:0}#s4 .wh{font-size:17.5px}#s4 .ws{font-size:12.25px}#s5 .wh{font-size:17.5px}#s5 .ws{font-size:12.25px}#s4 .hp .wod{margin:0 0 14px}
 #s4 .wl,#s5 .wl{font-size:14px;padding:7px 0}#s4 .wl b,#s5 .wl b{font-size:14px;min-width:48px}
 .gl{margin:0 0 12px}.gl dt{font-weight:700;color:#111;margin-top:10px}.gl dd{margin:2px 0 0}
 .wh{font-weight:900;font-size:26px;letter-spacing:.01em}.ws{font-size:16px;font-weight:700;letter-spacing:.04em;color:#6b6b6b;margin-top:4px}
-.wl{display:flex;gap:12px;align-items:baseline;padding:12px 0;border-bottom:1px solid #E5E5E5;font-size:20px;font-weight:600}.wl:last-child{border:0}.wl b{font-weight:900;min-width:64px;font-size:24px}
+.wl{display:flex;gap:12px;align-items:baseline;padding:12px 0;border-bottom:1px solid #E5E5E5;font-size:20px;font-weight:600}.wl:last-child{border:0}.wb{margin-top:8px}#s2 .wb,#s4 .wb,#s5 .wb{margin-top:14px;padding-top:6px;border-top:1px solid #CFCFCF}.wl b{font-weight:900;min-width:64px;font-size:24px}
 .note{font-size:14px;color:#555;line-height:1.6;margin-top:12px}.note .bl{display:flex;gap:.45em}.note .bl span:first-child{flex:none}
 .cd{align-items:center;justify-content:center;text-align:center}.cd .cl{font-weight:800;letter-spacing:.12em;font-size:20px}
 .cn{font-weight:900;font-size:min(48vw,210px);line-height:1;font-variant-numeric:tabular-nums;animation:pop .45s ease}
@@ -305,7 +305,7 @@ function renderS2(){const w=S.wod;
  $('#wod').innerHTML=wodHTML(w);
  $('#scl').innerHTML=(w.scale.length?'<dl class="gl"><dt>SCALE</dt><dd>'+w.scale.map(esc).join('<br>')+'</dd></dl>':'')+GLOSS}
 const GLOSS='<dl class="gl">'+[['AMRAP','As Many Rounds As Possible. 정해진 시간 안에 가능한 한 많은 라운드를 돕니다.'],['FOR TIME','정해진 운동량을 처음부터 끝까지 최대한 빠르게 끝냅니다.'],['LADDER','반복 횟수가 계단처럼 줄어들거나(DESCENDING) 늘어나는(ASCENDING) 방식입니다. 예) 10-8-6-4-2.'],['EMOM','Every Minute On the Minute. 매분 시작할 때 정해진 운동을 하고, 끝나고 남은 시간은 쉽니다.'],['INTERVAL','동작마다 1분(운동 시간 + 휴식)씩 돌아가며 합니다. 정해진 시간 안에 목표 횟수를 채우고 남는 시간은 쉽니다. 강도가 높을수록 횟수가 늘고 휴식이 줄어듭니다.']].map(([t,d])=>`<dt>${t}</dt><dd>${d}</dd>`).join('')+'</dl>';
-const wodHTML=w=>`<div class="wh">${esc(w.head)}</div>${w.sub?`<div class="ws">${esc(w.sub)}</div>`:''}<div style="margin-top:8px">${w.lines.map(l=>l.r?`<div class="wl"><b>${esc(l.r)}</b><span>${esc(l.n)}</span></div>`:`<div class="wl"><span>${esc(l.n)}</span></div>`).join('')}</div>`;
+const wodHTML=w=>`<div class="wh">${esc(w.head)}</div>${w.sub?`<div class="ws">${esc(w.sub)}</div>`:''}<div class="wb">${w.lines.map(l=>l.r?`<div class="wl"><b>${esc(l.r)}</b><span>${esc(l.n)}</span></div>`:`<div class="wl"><span>${esc(l.n)}</span></div>`).join('')}</div>`;
 $('#gen').onclick=()=>{if(generate())go(2)};
 $('#again').onclick=()=>{generate();$('#s2').classList.remove('on');void $('#s2').offsetWidth;go(2)};
 $('#home').onclick=()=>go(1);$('#bk2').onclick=()=>go(1);
@@ -360,7 +360,7 @@ const TPL=[
  d=>sc(1,300)+sc(0,300)+`<div class="a" style="top:96px;left:0;right:0;text-align:center"><div style="font-weight:900;font-size:78px;letter-spacing:10px;padding-left:10px;line-height:1">KYE3</div><div style="width:48px;height:2px;background:#fff;margin:14px auto 0"></div><div class="tm" style="font-size:44px;margin-top:18px">${d.t}</div></div><div class="a" style="left:30px;right:30px;bottom:66px;text-align:center"><div class="lb" style="margin-bottom:10px">${esc(d.dt)} / ${esc(d.int)}</div>${rtI(d)}<div style="font-weight:800;font-size:10px;letter-spacing:.24em;margin-top:12px">${esc(d.msg)}</div></div>`
 ];
 const NAMES=['미니멀 클래식','볼드 타이포그래피','에디토리얼 그리드','데이터 중심','센터 스테이트먼트','비대칭 레이아웃','프리미엄 시그니처'];
-function renderCard(anim){const o=$('#ov');o.innerHTML=TPL[S.tpl-1](data());{const t=$('#t2t'),b=$('#t2b');if(t&&b){let f=parseFloat(t.style.fontSize);while(f>70&&t.offsetTop+t.offsetHeight>b.offsetTop-14){f-=4;t.style.fontSize=f+'px'}}}if(anim){o.classList.remove('sw2');void o.offsetWidth;o.classList.add('sw2')}$('#ind').innerHTML='<b>'+two(S.tpl)+'</b> / 07<span class="nm">'+NAMES[S.tpl-1]+'</span>';try{localStorage.setItem('kye3tpl',S.tpl)}catch(e){}}
+function renderCard(anim){const o=$('#ov');o.innerHTML=TPL[S.tpl-1](data());{const t=$('#t2t'),b=$('#t2b');if(t&&b){let f=parseFloat(t.style.fontSize);while(f>70&&t.offsetTop+t.offsetHeight>b.offsetTop-14){f-=4;t.style.fontSize=f+'px'}}}if(anim){o.classList.remove('sw2');void o.offsetWidth;o.classList.add('sw2');o.addEventListener('animationend',()=>o.classList.remove('sw2'),{once:true})}$('#ind').innerHTML='<b>'+two(S.tpl)+'</b> / 07<span class="nm">'+NAMES[S.tpl-1]+'</span>';try{localStorage.setItem('kye3tpl',S.tpl)}catch(e){}}
 function setTpl(n){S.tpl=((n-1+7)%7)+1;renderCard(true)}
 $('#prev').onclick=()=>setTpl(S.tpl-1);$('#next').onclick=()=>setTpl(S.tpl+1);
 function fitCard(){const w=$('#pvw'),sc=w.parentElement.clientWidth>0?w.clientWidth/360:1;$('#cw').style.transform=`scale(${sc})`;w.style.height=640*sc+'px'}
@@ -386,7 +386,7 @@ pv.onwheel=e=>{if(!P.img)return;e.preventDefault();P.zoom=clamp(P.zoom-e.deltaY*
 /* ===== export: 1080x1920 PNG of the current design only ===== */
 let busy=false;
 async function renderPNG(){await document.fonts.ready;
- const c=await html2canvas($('#card'),{scale:3,width:360,height:640,backgroundColor:'#000',useCORS:true,logging:false,scrollX:0,scrollY:-scrollY,onclone:d=>{d.getElementById('cw').style.transform='none';d.getElementById('pvw').style.height='640px'}});
+ const c=await html2canvas($('#card'),{scale:3,width:360,height:640,backgroundColor:'#000',useCORS:true,logging:false,scrollX:0,scrollY:-scrollY,onclone:d=>{const ov=d.getElementById('ov');ov.classList.remove('sw2');ov.style.animation='none';ov.style.opacity='1';d.getElementById('cw').style.transform='none';d.getElementById('pvw').style.height='640px'}});
  let o=c;if(c.width!==1080||c.height!==1920){o=document.createElement('canvas');o.width=1080;o.height=1920;o.getContext('2d').drawImage(c,0,0,1080,1920)}
  return new Promise(r=>o.toBlob(r,'image/png'))}
 const ios=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
