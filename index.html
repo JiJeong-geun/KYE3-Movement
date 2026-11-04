@@ -31,14 +31,14 @@ h2{font-size:15px;margin:28px 0 12px;font-weight:800}
 .b.p{background:#000;color:#fff}.b:disabled{opacity:.4}.b:active{transform:scale(.99)}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
 .ft{text-align:left;font-size:15px;color:#111;margin-top:32px;line-height:1.6;font-weight:400}.ft a{color:#111;text-decoration:none}
-.info>div{margin-bottom:14px}.info>div>span,.k{display:block;font-size:13px;letter-spacing:.02em;color:#6b6b6b;font-weight:700;margin-bottom:4px}.info>div>b{display:block;font-size:16px;font-weight:400}
+.info>div{margin-bottom:14px}.info>div>span,.k{display:block;font-size:13px;letter-spacing:.02em;color:#6b6b6b;font-weight:700;margin-bottom:4px}.info>div>b{display:block;font-size:16px;font-weight:400}#s2i>div>span,#s5 .rc>.info>div>span{color:#000}
 .hp{margin-top:4px;border-top:1px solid #E5E5E5;border-bottom:1px solid #E5E5E5}
 .hp summary{min-height:48px;display:flex;align-items:center;justify-content:space-between;font-size:16px;font-weight:700;cursor:pointer;list-style:none}
 .hp summary::-webkit-details-marker{display:none}.hp summary:after{content:'+';font-size:22px;font-weight:400}.hp[open] summary:after{content:'−'}
 .hp .note{margin:0 0 14px}
 #s2 .hp summary{font-size:14px}
 .wod{background:#F5F5F5;padding:22px 18px;margin:16px 0;border-radius:4px}
-#s2 .wh,#s4 .wh,#s5 .wh{font-size:20px}#s2 .ws,#s4 .ws,#s5 .ws{font-size:14px}#s2 .wl,#s4 .wl,#s5 .wl{font-size:16px;padding:9px 0}#s2 .wl b,#s4 .wl b,#s5 .wl b{font-size:16px;min-width:52px}
+#s2 .wh,#s4 .wh,#s5 .rc{margin-top:20px}#s5 .wh{font-size:20px}#s2 .ws,#s4 .ws,#s5 .ws{font-size:14px}#s2 .wl,#s4 .wl,#s5 .wl{font-size:16px;padding:9px 0}#s2 .wl b,#s4 .wl b,#s5 .wl b{font-size:16px;min-width:52px}
 #s4 .hp{border-top:0}#s4 .wh{font-size:17.5px}#s4 .ws{font-size:12.25px}#s5 .wh{font-size:17.5px}#s5 .ws{font-size:12.25px}#s4 .hp .wod{margin:0 0 14px}
 #s4 .wl,#s5 .wl{font-size:14px;padding:7px 0}#s4 .wl b,#s5 .wl b{font-size:14px;min-width:48px}
 .gl{margin:0 0 12px}.gl dt{font-weight:700;color:#111;margin-top:10px}.gl dd{margin:2px 0 0}
@@ -90,7 +90,7 @@ h2{font-size:15px;margin:28px 0 12px;font-weight:800}
 <div class="err" id="err" role="alert"></div>
 <div class="sp"></div>
 <button class="b p bl" id="gen">랜덤 뽑기 시작</button>
-<footer class="ft">Powered by © KYE3<br>All right reserved kye3.com</footer>
+<footer class="ft">Engineered by © KYE3<br>All right reserved kye3.com</footer>
 </section>
 
 <section class="s" id="s2">
@@ -114,7 +114,6 @@ h2{font-size:15px;margin:28px 0 12px;font-weight:800}
 </section>
 
 <section class="s" id="s5">
-<header class="h hc"><span>운동 결과</span></header>
 <div class="rc"><div class="rs"><div class="big" id="rt"></div></div>
 <div class="info"><div><span>운동 날짜</span><b id="rd"></b></div>
 <div><span>운동 종목</span><b id="ry"></b></div>
@@ -134,7 +133,7 @@ h2{font-size:15px;margin:28px 0 12px;font-weight:800}
 <div class="sp"></div>
 <button class="b p bl" id="dl" style="margin-top:14px">이미지 저장</button>
 <button class="b bl" id="nw" style="margin-top:8px">새 운동 시작하기</button>
-<footer class="ft">Powered by © KYE3<br>All right reserved kye3.com</footer>
+<footer class="ft">Engineered by © KYE3<br>All right reserved kye3.com</footer>
 </section>
 </div>
 <div id="modal"><div class="mb" id="mb"></div></div><div id="toast"></div><div id="pop" role="dialog" aria-modal="true" aria-labelledby="pt"><div class="pb"><h3 class="pt" id="pt"></h3><div class="pr"><button class="b p bl" id="pcl">랜덤 뽑기 시작</button></div></div></div><div id="done" role="status"></div>
@@ -282,7 +281,7 @@ const fdtKo=d=>`${d.getFullYear()}년 ${two(d.getMonth()+1)}월 ${two(d.getDate(
 const fdt=d=>`${d.getFullYear()}.${two(d.getMonth()+1)}.${two(d.getDate())} ${two(d.getHours())}:${two(d.getMinutes())}`;
 const cdate=d=>`${MON[d.getMonth()]} ${two(d.getDate())}, ${d.getFullYear()}`;
 function go(n){$$('.s').forEach(s=>s.classList.remove('on'));$('#s'+n).classList.add('on');scrollTo(0,0);if(n===1)$('#wp').scrollTop=S.dur*WH;if(n===6){fitCard();drawBG();renderCard()}}
-function modal(t,p,btns,extra='',cls=''){$('#mb').className='mb '+cls;$('#mb').innerHTML=`<h3>${t}</h3><p>${p}</p>${extra}`;btns.forEach(([l,fn,pr])=>{const b=document.createElement('button');b.className='b'+(pr?' p':'');b.textContent=l;b.onclick=()=>{$('#modal').classList.remove('on');fn&&fn()};$('#mb').appendChild(b)});$('#modal').classList.add('on')}
+function modal(t,p,btns,extra='',cls=''){$('#mb').className='mb '+cls;$('#mb').innerHTML=`<h3>${t}</h3>${p?`<p>${p}</p>`:''}${extra}`;btns.forEach(([l,fn,pr])=>{const b=document.createElement('button');b.className='b'+(pr?' p':'');b.textContent=l;b.onclick=()=>{$('#modal').classList.remove('on');fn&&fn()};$('#mb').appendChild(b)});$('#modal').classList.add('on')}
 let dt;function done(m){const t=$('#done');t.textContent=m;t.classList.add('on');clearTimeout(dt);dt=setTimeout(()=>t.classList.remove('on'),3000)}
 let tt;function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(tt);tt=setTimeout(()=>t.style.display='none',3200)}
 /* ===== STEP 1 ===== */
