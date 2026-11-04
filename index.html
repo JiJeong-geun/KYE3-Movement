@@ -186,7 +186,8 @@ P|Toes to Bar|토투바|Core|근지구력|3|2|3.5|5-10||1|Hanging Leg Raises
 P|Muscle-Up|머슬업|Pull|파워|3|2|5|3-8||1|Pull-Ups
 P|Hanging Leg Raises|행잉 레그 레이즈|Core|근지구력|2|1|3|6-12||0|Hanging Knee Raises
 P|Knee Raises|니 레이즈|Core|근지구력|1|0|2.5|10-18||0|Sit-Ups
-P|Kipping Pull-Ups|키핑 풀업|Pull|파워|3|3|3|6-12||1|Pull-Ups`.split('\n').map(l=>{const [eq,name,ko,pat,type,lvl,min,tpr,rg,unit,tech,alt]=l.split('|'),[lo,hi]=rg.split('-').map(Number);return{eq,name,ko,pat,type,lvl:+lvl,min:+min,tpr:+tpr,lo,hi,unit,tech:tech==='1',alt:ALT[alt]||alt}});
+P|Kipping Pull-Ups|키핑 풀업|Pull|파워|3|3|3|6-12||1|Pull-Ups
+P|Chest to Bar|체스트 투 바|Pull|파워|3|1|3.5|4-10||1|Kipping Pull-Ups|1`.split('\n').map(l=>{const [eq,name,ko,pat,type,lvl,min,tpr,rg,unit,tech,alt,fl]=l.split('|'),[lo,hi]=rg.split('-').map(Number);return{eq,name,ko,pat,type,lvl:+lvl,min:+min,fl:+(fl||0),tpr:+tpr,lo,hi,unit,tech:tech==='1',alt:ALT[alt]||alt}});
 const TY={D:'DUMBBELL',B:'BARBELL',W:'BODYWEIGHT',P:'PULL-UP BAR'},MON=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
 /* intensity settings: i=index, rm=rep multiplier, tc/tt=seconds-per-rep coefficient (normal / technical lifts), tr=transition sec per move,
    rr=rest sec between rounds, ratio=interval rest:work, r=typical round range */
@@ -263,7 +264,7 @@ const BUILD={ROUNDS:bROUNDS,AMRAP:bAMRAP,CHIPPER:bCHIPPER,LADDER:bLADDER,EMOM:bE
 /* generate up to 30 candidates; show the first whose expected time is within +-10% of the chosen time */
 function buildWOD(S){
  const I=INT[S.int],T=S.dur*60;let pool=[];
- for(let lv=I.i;lv<=3;lv++){pool=DB.filter(e=>S.types.has(e.eq)&&e.min<=lv);if(pool.length>=6)break}
+ for(let lv=I.i;lv<=3;lv++){pool=DB.filter(e=>S.types.has(e.eq)&&e.min<=lv&&e.fl<=I.i);if(pool.length>=6)break}
  const names=Object.keys(BUILD),fl=names.filter(f=>f!==S.lastFmt);let best=null;
  for(let t=0;t<30;t++){const f=(t<24?fl:names)[rnd((t<24?fl:names).length)],w=BUILD[f](pool,I,T);
   if(!w)continue;if(w.ok){best=w;break}if(!best||w.err<best.err)best=w}
