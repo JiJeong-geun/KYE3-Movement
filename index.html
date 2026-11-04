@@ -8,7 +8,7 @@ html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:#F5F5F5;color:#111;font-family:'Noto Sans','Noto Sans KR','Helvetica Neue',Arial,sans-serif;font-size:16px;line-height:1.4;-webkit-tap-highlight-color:transparent;overflow-x:hidden}
 button{font:inherit;cursor:pointer}
 #app{max-width:430px;margin:0 auto;background:#fff;min-height:calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;position:relative;box-shadow:0 0 0 1px #E5E5E5}
-.s{display:none;flex-direction:column;flex:1;padding:0 20px 24px}.s.on{display:flex;animation:f .25s ease}
+.s{display:none;flex-direction:column;flex:1;padding:0 20px 24px}.s.on{display:flex;animation:f .25s ease}.s.on.fi{animation:fi .9s ease}@keyframes fi{from{opacity:0}to{opacity:1}}
 @keyframes f{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .h{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid #E5E5E5;margin-bottom:22px}
 .h.hc{min-height:61.6px;box-sizing:border-box;display:grid;grid-template-columns:1fr auto 1fr;align-items:center}.h.hc span{grid-column:2;text-align:center;line-height:24.6px;white-space:nowrap}.h.hc .bk{grid-column:1;justify-self:start}.bk{display:flex;align-items:center;justify-content:flex-start;width:44px;height:24.6px;margin:0;padding:0;border:0;background:none;cursor:pointer;-webkit-tap-highlight-color:transparent}.bk svg{margin-left:-4px}.bk{position:relative}.bk::after{content:'';position:absolute;inset:-12px -4px}.hl{cursor:pointer;display:block;line-height:0;-webkit-tap-highlight-color:transparent}.wm{display:block;height:24.6px;width:auto;background:none}.h span{font-size:16px;font-weight:700;letter-spacing:.02em}
@@ -280,7 +280,7 @@ const tyKo=()=>['D','B','W','P'].filter(k=>S.types.has(k)).map(k=>TYK[k]).join('
 const fdtKo=d=>`${d.getFullYear()}년 ${two(d.getMonth()+1)}월 ${two(d.getDate())}일 ${two(d.getHours())}시 ${two(d.getMinutes())}분`;
 const fdt=d=>`${d.getFullYear()}.${two(d.getMonth()+1)}.${two(d.getDate())} ${two(d.getHours())}:${two(d.getMinutes())}`;
 const cdate=d=>`${MON[d.getMonth()]} ${two(d.getDate())}, ${d.getFullYear()}`;
-function go(n){$$('.s').forEach(s=>s.classList.remove('on'));$('#s'+n).classList.add('on');scrollTo(0,0);if(n===1)$('#wp').scrollTop=S.dur*WH;if(n===6){fitCard();drawBG();renderCard()}}
+function go(n){clearTimeout(S.auto);$$('.fi').forEach(e=>e.classList.remove('fi'));$$('.s').forEach(s=>s.classList.remove('on'));$('#s'+n).classList.add('on');scrollTo(0,0);if(n===1)$('#wp').scrollTop=S.dur*WH;if(n===6){fitCard();drawBG();renderCard()}}
 function modal(t,p,btns,extra='',cls=''){$('#mb').className='mb '+cls;$('#mb').innerHTML=`<h3>${t}</h3>${p?`<p>${p}</p>`:''}${extra}`;btns.forEach(([l,fn,pr])=>{const b=document.createElement('button');b.className='b'+(pr?' p':'');b.textContent=l;b.onclick=()=>{$('#modal').classList.remove('on');fn&&fn()};$('#mb').appendChild(b)});$('#modal').classList.add('on')}
 let dt;function done(m){const t=$('#done');t.textContent=m;t.classList.add('on');clearTimeout(dt);dt=setTimeout(()=>t.classList.remove('on'),3000)}
 let tt;function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(tt);tt=setTimeout(()=>t.style.display='none',3200)}
@@ -336,7 +336,7 @@ function loop(){cancelAnimationFrame(raf);const f=()=>{paint();if($('#s4').class
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&$('#s4').classList.contains('on')){paint();loop();lock()}});
 $('#pp').onclick=()=>{if(sw.run){sw.acc+=Date.now()-sw.at;sw.run=false;try{wl&&wl.release()}catch(e){}}else{sw.at=Date.now();sw.run=true;lock()}paint()};
 $('#stop').onclick=()=>modal('운동을 종료할까요?','운동을 마치고 결과를 확인하시겠어요?',[['계속 운동하기'],['운동 종료',finish,1]],'','sm');
-function finish(){if(sw.run){sw.acc+=Date.now()-sw.at;sw.run=false}try{wl&&wl.release()}catch(e){}cancelAnimationFrame(raf);S.ms=sw.acc;S.end=new Date();beep(660,.15);renderS5();go(5)}
+function finish(){if(sw.run){sw.acc+=Date.now()-sw.at;sw.run=false}try{wl&&wl.release()}catch(e){}cancelAnimationFrame(raf);S.ms=sw.acc;S.end=new Date();beep(660,.15);renderS5();go(5);S.auto=setTimeout(()=>{if($('#s5').classList.contains('on')){go(6);const n=$('#s6');n.classList.add('fi');n.addEventListener('animationend',()=>n.classList.remove('fi'),{once:true})}},5000)}
 /* ===== STEP 5 ===== */
 function renderS5(){const t=Math.floor(S.ms/1000);$('#rt').textContent=fmt(S.ms);
  $('#rd').textContent=fdtKo(S.start);
@@ -386,7 +386,7 @@ pv.onwheel=e=>{if(!P.img)return;e.preventDefault();P.zoom=clamp(P.zoom-e.deltaY*
 /* ===== export: 1080x1920 PNG of the current design only ===== */
 let busy=false;
 async function renderPNG(){await document.fonts.ready;
- const c=await html2canvas($('#card'),{scale:3,width:360,height:640,backgroundColor:'#000',useCORS:true,logging:false,scrollX:0,scrollY:-scrollY,onclone:d=>{const ov=d.getElementById('ov');ov.classList.remove('sw2');ov.style.animation='none';ov.style.opacity='1';d.getElementById('cw').style.transform='none';d.getElementById('pvw').style.height='640px'}});
+ const c=await html2canvas($('#card'),{scale:3,width:360,height:640,backgroundColor:'#000',useCORS:true,logging:false,scrollX:0,scrollY:-scrollY,onclone:d=>{d.querySelectorAll('.s').forEach(e=>{e.style.animation='none'});const ov=d.getElementById('ov');ov.classList.remove('sw2');ov.style.animation='none';ov.style.opacity='1';d.getElementById('cw').style.transform='none';d.getElementById('pvw').style.height='640px'}});
  let o=c;if(c.width!==1080||c.height!==1920){o=document.createElement('canvas');o.width=1080;o.height=1920;o.getContext('2d').drawImage(c,0,0,1080,1920)}
  return new Promise(r=>o.toBlob(r,'image/png'))}
 const ios=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
