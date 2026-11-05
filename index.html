@@ -84,7 +84,7 @@ h2{font-size:15px;margin:28px 0 12px;font-weight:800}
 .ml[hidden]{display:none}
 .ml a{display:block;padding:12px 14px;font-size:15px;font-weight:600;color:#111;text-decoration:none;border-radius:6px;white-space:nowrap}
 .ml a:hover,.ml a:active{background:#F5F5F5}
-.mb p{word-break:keep-all}
+.mb.rk p{word-break:keep-all}
 /* ===== record view (#s7) ===== */
 .note{font-size:14px;color:#555;line-height:1.6;margin-top:12px}.note .bl{display:flex;gap:.45em}#s7 .note{color:#E60000;word-break:keep-all}.note .bl span:first-child{flex:none}
 #rpvw{position:relative;touch-action:none;overflow:hidden;background:#000;cursor:grab;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
@@ -621,15 +621,15 @@ $('#rdl').onclick=()=>{readForm();const d=data();
  if(d.sample||(!d.head&&!d.lines.length)){toast('운동 유형이나 운동 종목을 입력해 주세요.');$('#rfm').scrollIntoView({behavior:'smooth',block:'start'});return}
  withBusy(async()=>{const b=await renderPNG(),u=URL.createObjectURL(b),name=`kye3-workout-${(F.date||todayStr()).replace(/-/g,'')}-${S.tpl}.png`;
  if(ios){const f=new File([b],name,{type:'image/png'});if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f]});done('이미지가 다운로드 되었습니다');return}catch(e){if(e.name==='AbortError')return}}
-  modal('이미지 저장','이미지를 길게 누른 뒤 ‘사진에 저장’을 선택하세요.',[['닫기',()=>URL.revokeObjectURL(u)]],`<img src="${u}" alt="Workout card">`);return}
+  modal('이미지 저장','이미지를 길게 누른 뒤 ‘사진에 저장’을 선택하세요.',[['닫기',()=>URL.revokeObjectURL(u)]],`<img src="${u}" alt="Workout card">`,'rk');return}
  const a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);done('이미지가 다운로드 되었습니다')},$('#rdl'))};
-$('#rnw').onclick=()=>modal('입력을 초기화할까요?','입력한 내용과 배경 사진이 모두 삭제됩니다.',[['취소'],['초기화',()=>{F=blank();syncForm();clearPhoto();renderCard()},1]],'','sm');
+$('#rnw').onclick=()=>modal('입력을 초기화할까요?','입력한 내용과 배경 사진이 모두 삭제됩니다.',[['취소'],['초기화',()=>{F=blank();syncForm();clearPhoto();renderCard()},1]],'','sm rk');
 
 
 /* ===== compact preview: appears at the top once the full card has scrolled out of view ===== */
 const mini=()=>{$('#rmov').innerHTML=$('#rov').innerHTML.replace(/ id="/g,' data-i="');const x=$('#rmbg').getContext('2d');x.imageSmoothingQuality='high';x.drawImage($('#rbgc'),0,0,360,640);$('#rmind').textContent=two(S.tpl)+' / 07 · '+NAMES[S.tpl-1]};
 const syncMini=()=>{const m=$('#rmini');if(m&&m.classList.contains('on'))mini()};
-function fitMini(){const mh=Math.min(innerHeight*.3,300),k=mh/640,bx=$('#rmbox');bx.style.width=360*k+'px';bx.style.height=mh+'px';$('#rmcw').style.transform=`scale(${k})`;document.documentElement.style.setProperty('--stk',$('#rmini').offsetHeight+'px')}
+function fitMini(){$('#rmind').textContent=two(S.tpl)+' / 07 · '+NAMES[S.tpl-1];const mh=Math.min(innerHeight*.4,400),k=mh/640,bx=$('#rmbox');bx.style.width=360*k+'px';bx.style.height=mh+'px';$('#rmcw').style.transform=`scale(${k})`;document.documentElement.style.setProperty('--stk',$('#rmini').offsetHeight+'px')}
 let mt=0;function onScroll(){if(mt)return;mt=requestAnimationFrame(()=>{mt=0;const m=$('#rmini');if(!shown()){m.classList.remove('on');return}
  const o=$('#rstk').getBoundingClientRect().bottom<40;if(o!==m.classList.contains('on')){m.classList.toggle('on',o);if(o){fitMini();mini()}}})}
 addEventListener('scroll',onScroll,{passive:true});
@@ -647,7 +647,7 @@ if(document.fonts&&document.fonts.addEventListener)document.fonts.addEventListen
  document.addEventListener('click',e=>{if(!l.hidden&&!w.contains(e.target))set(false)});
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!l.hidden){set(false);b.focus()}});
  l.onclick=e=>{const a=e.target.closest('a');if(!a)return;e.preventDefault();set(false);
-  modal('랜덤 운동 뽑기 페이지로 이동할까요?','현재 화면의 내용은 저장되지 않고 사라집니다.',[['취소'],['이동하기',()=>navTo(a.getAttribute('href')),1]],'','sm')}})();
+  modal('랜덤 운동 뽑기 페이지로 이동할까요?','현재 화면의 내용은 저장되지 않고 사라집니다.',[['취소'],['이동하기',()=>navTo(a.getAttribute('href')),1]],'','sm rk')}})();
 })();
 /* ===== routing: movement.kye3.com (record card, default) / movement.kye3.com/#random (random picker) ===== */
 let curView=location.hash==='#random'?'#random':'#record';
