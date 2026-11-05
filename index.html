@@ -676,7 +676,7 @@ $('#rccx').onclick=()=>{clearInterval(rcd);go(7);fitCard()};
 $('#rbk8').onclick=()=>{if(rsw.run){rsw.acc+=Date.now()-rsw.at;rsw.run=false}try{rwl&&rwl.release()}catch(e){}cancelAnimationFrame(rraf);go(7);fitCard()};
 $('#rpp').onclick=()=>{if(rsw.run){rsw.acc+=Date.now()-rsw.at;rsw.run=false;try{rwl&&rwl.release()}catch(e){}}else{rsw.at=Date.now();rsw.run=true;rlock()}rpaint()};
 function rswFinish(){if(rsw.run){rsw.acc+=Date.now()-rsw.at;rsw.run=false}try{rwl&&rwl.release()}catch(e){}cancelAnimationFrame(rraf);
- const t=Math.floor(rsw.acc/1000);$('#rfmn').value=two(Math.floor(t/60));$('#rfsc').value=two(t%60);
+ const t=Math.floor(rsw.acc/1000);$('#rfmn').value=two(Math.min(999,Math.floor(t/60)));$('#rfsc').value=two(t%60);
  ['#rfmn','#rfsc'].forEach(q=>$(q).dispatchEvent(new Event('input',{bubbles:true})));readForm();renderCard();beep(660,.15);go(7);fitCard();done('운동 시간이 입력되었어요.')}
 $('#rstop').onclick=()=>modal('운동을 종료할까요?','운동 시간이 기록 카드에 입력돼요.',[['계속 운동하기'],['운동 종료',rswFinish,1]],'','sm rk');
 /* ===== init (runs only while the record view is shown) ===== */
