@@ -38,12 +38,12 @@ h2{font-size:15px;margin:28px 0 12px;font-weight:800}
 .hp .note{margin:0 0 14px}
 #s2 .hp summary{font-size:14px}
 .wod{background:#F5F5F5;padding:22px 18px;margin:16px 0;border-radius:4px}
-#s5 .rc{margin-top:20px}#s2 .wh,#s4 .wh,#s5 .wh{font-size:20px}#s2 .ws,#s4 .ws,#s5 .ws{font-size:14px}#s2 .wl,#s4 .wl,#s5 .wl{font-size:16px;padding:9px 0}#s2 .wl b,#s4 .wl b,#s5 .wl b{font-size:16px;min-width:52px}
-#s4 .hp{border-top:0}#s4 .wh{font-size:17.5px}#s4 .ws{font-size:12.25px}#s5 .wh{font-size:17.5px}#s5 .ws{font-size:12.25px}#s4 .hp .wod{margin:0 0 14px}
-#s4 .wl,#s5 .wl{font-size:14px;padding:7px 0}#s4 .wl b,#s5 .wl b{font-size:14px;min-width:48px}
+#s5 .rc{margin-top:20px}#s2 .wh,#s4 .wh,#s8 .wh,#s5 .wh{font-size:20px}#s2 .ws,#s4 .ws,#s8 .ws,#s5 .ws{font-size:14px}#s2 .wl,#s4 .wl,#s8 .wl,#s5 .wl{font-size:16px;padding:9px 0}#s2 .wl b,#s4 .wl b,#s8 .wl b,#s5 .wl b{font-size:16px;min-width:52px}
+#s4 .hp,#s8 .hp{border-top:0}#s4 .wh,#s8 .wh{font-size:17.5px}#s4 .ws,#s8 .ws{font-size:12.25px}#s5 .wh{font-size:17.5px}#s5 .ws{font-size:12.25px}#s4 .hp .wod,#s8 .hp .wod{margin:0 0 14px}
+#s4 .wl,#s8 .wl,#s5 .wl{font-size:14px;padding:7px 0}#s4 .wl b,#s8 .wl b,#s5 .wl b{font-size:14px;min-width:48px}
 .gl{margin:0 0 12px}.gl dt{font-weight:700;color:#111;margin-top:10px}.gl dd{margin:2px 0 0}
 .wh{font-weight:900;font-size:26px;letter-spacing:.01em}.ws{font-size:16px;font-weight:700;letter-spacing:.04em;color:#6b6b6b;margin-top:4px}
-.wl{display:flex;gap:12px;align-items:baseline;padding:12px 0;border-bottom:1px solid #E5E5E5;font-size:20px;font-weight:600}.wl:last-child{border:0}.wb{margin-top:8px}#s2 .wb,#s4 .wb,#s5 .wb{margin-top:14px;padding-top:6px;border-top:1px solid #CFCFCF}.wl b{font-weight:900;min-width:64px;font-size:24px}
+.wl{display:flex;gap:12px;align-items:baseline;padding:12px 0;border-bottom:1px solid #E5E5E5;font-size:20px;font-weight:600}.wl:last-child{border:0}.wb{margin-top:8px}#s2 .wb,#s4 .wb,#s8 .wb,#s5 .wb{margin-top:14px;padding-top:6px;border-top:1px solid #CFCFCF}.wl b{font-weight:900;min-width:64px;font-size:24px}
 .note{font-size:14px;color:#555;line-height:1.6;margin-top:12px}.note .bl{display:flex;gap:.45em}#s6 .note{color:#E60000;word-break:keep-all}.note .bl span:first-child{flex:none}
 .cd{align-items:center;justify-content:center;text-align:center}.cd .cl{font-weight:800;letter-spacing:.12em;font-size:20px}
 .cn{font-weight:900;font-size:min(48vw,210px);line-height:1;font-variant-numeric:tabular-nums;animation:pop .45s ease}
@@ -151,6 +151,7 @@ input[type=date].in{text-align:left;line-height:43px}
 #rmini .mind{text-align:center;font-size:12px;font-weight:600;margin-top:6px;color:#111}
 #s7 .in,#rfm,#s7 h2{scroll-margin-top:calc(var(--stk,0px) + 16px)}#s7 .dv{height:1px;background:#E5E5E5;margin:22px 0 0}#s7 .dv+h2{margin-top:22px}.fm+.note{margin-top:22px}#s7 .ind+h2{margin-top:12px}.zm+.note{margin-top:24px}
 #s7 .h{border-bottom:0;margin-bottom:16px}
+.swl{display:inline-block;align-self:flex-start;margin:6px 0 0;padding:6px 0;border:0;background:none;color:#111;font:inherit;font-size:14px;font-weight:600;text-decoration:underline;text-underline-offset:3px;cursor:pointer;-webkit-tap-highlight-color:transparent}.swl:active{opacity:.6}
 </style></head><body>
 <div id="app">
 <section class="s on" id="s1">
@@ -223,9 +224,9 @@ input[type=date].in{text-align:left;line-height:43px}
 <div class="dv" role="separator"></div>
 <h2>운동 정보 입력</h2>
 <div class="fm" id="rfm">
- <div class="fd"><label for="rfd">날짜</label><input class="in" id="rfd" type="date"></div>
  <div class="fd"><label for="rfmn">운동 시간</label>
-  <div class="tm2"><input class="in" id="rfmn" inputmode="numeric" maxlength="3" placeholder="00" autocomplete="off" aria-label="운동 시간 분"><em>분</em><input class="in" id="rfsc" inputmode="numeric" maxlength="2" placeholder="00" autocomplete="off" aria-label="운동 시간 초"><em>초</em></div></div>
+  <div class="tm2"><input class="in" id="rfmn" inputmode="numeric" maxlength="3" placeholder="00" autocomplete="off" aria-label="운동 시간 분"><em>분</em><input class="in" id="rfsc" inputmode="numeric" maxlength="2" placeholder="00" autocomplete="off" aria-label="운동 시간 초"><em>초</em></div><button type="button" class="swl" id="rswgo">운동하고 입력하기 &gt;</button></div>
+ <div class="fd"><label for="rfd">날짜</label><input class="in" id="rfd" type="date"></div>
  <div class="fd"><label for="rfin">강도</label><input class="in" id="rfin" maxlength="20" placeholder="직접 입력 가능" autocomplete="off">
   <div class="qk" id="rqk"><button type="button" class="c" data-v="LOW">LOW</button><button type="button" class="c" data-v="MODERATE">MODERATE</button><button type="button" class="c" data-v="HIGH">HIGH</button><button type="button" class="c" data-v="EXTREME">EXTREME</button></div></div>
  <div class="fd"><label for="rfhd">운동 유형</label><input class="in" id="rfhd" maxlength="30" placeholder="HYROX, EMOM, Interval, CrossFit 등" autocomplete="off"></div>
@@ -239,6 +240,13 @@ input[type=date].in{text-align:left;line-height:43px}
 <button class="b p bl" id="rdl" style="margin-top:20px">이미지 저장</button>
 <button class="b bl" id="rnw" style="margin-top:8px">입력 초기화</button>
 <footer class="ft">Engineered by © KYE3<br>All right reserved kye3.com</footer>
+</section>
+<section class="s cd" id="s9"><div class="cl">준비하세요</div><div class="cn" id="rcn">5</div><button class="b" id="rccx" style="max-width:200px;margin-top:30px">취소</button></section>
+<section class="s" id="s8">
+<header class="h hc"><button class="bk" id="rbk8" type="button" aria-label="이전 페이지로 돌아가기"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></button><span>스톱워치</span></header>
+<details class="hp" id="rban" open><summary>현재 운동</summary><div class="wod" id="rbw"></div></details>
+<div class="sw" id="rsw">00:00</div>
+<div class="row" style="margin:0"><button class="b bl" id="rpp">일시정지</button><button class="b p bl" id="rstop">운동 종료</button></div>
 </section>
 </div>
 <div id="rmini" aria-hidden="true"><div class="mrow"><button type="button" class="ar" id="rmprev" tabindex="-1" aria-label="이전 디자인"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></button><div id="rmbox"><div id="rmcw"><div id="rmcard"><canvas id="rmbg" width="360" height="640"></canvas><div id="rmov"></div></div></div></div><button type="button" class="ar" id="rmnext" tabindex="-1" aria-label="다음 디자인"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button></div><div class="mind" id="rmind"></div></div>
@@ -648,6 +656,29 @@ $('#rmprev').onclick=()=>setTpl(S.tpl-1);$('#rmnext').onclick=()=>setTpl(S.tpl+1
  try{if(sessionStorage.getItem(K))off()}catch(e){}
  $('#rtipx').onclick=()=>{off();try{sessionStorage.setItem(K,'1')}catch(e){}};
  new MutationObserver(()=>t.classList.toggle('hid',!l.hidden)).observe(l,{attributes:true,attributeFilter:['hidden']})}
+/* ===== record stopwatch (#s8) ===== */
+const rsw={run:false,at:0,acc:0};let rraf,rwl;
+const rel=()=>rsw.acc+(rsw.run?Date.now()-rsw.at:0);
+async function rlock(){try{if('wakeLock' in navigator&&rsw.run)rwl=await navigator.wakeLock.request('screen')}catch(e){}}
+function rpaint(){const t=fmt(rel()),e=$('#rsw');e.textContent=t;e.classList.toggle('long',t.length>5);e.classList.toggle('pz',!rsw.run);const b=$('#rpp');b.textContent=rsw.run?'일시정지':'다시 시작';b.className='b bl'+(rsw.run?'':' p')}
+function rloop(){cancelAnimationFrame(rraf);const f=()=>{rpaint();if($('#s8').classList.contains('on'))rraf=requestAnimationFrame(f)};f()}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&$('#s8').classList.contains('on')){rpaint();rloop();rlock()}});
+function rbanner(){const d=data(),b=$('#rban');if(d.sample||(!d.head&&!d.sub&&!d.lines.length)){b.hidden=true;return}
+ b.hidden=false;b.open=true;$('#rbw').innerHTML=(d.head?`<div class="wh">${esc(d.head)}</div>`:'')+(d.sub?`<div class="ws">${esc(d.sub)}</div>`:'')+(d.lines.length?`<div class="wb">${d.lines.map(l=>l.a?`<div class="wl"><b>${esc(l.a)}</b><span>${esc(l.b)}</span></div>`:`<div class="wl"><span>${esc(l.b)}</span></div>`).join('')}</div>`:'')}
+function rswStart(){readForm();rbanner();rsw.acc=0;rsw.at=Date.now();rsw.run=true;rpaint();go(8);rlock();rloop()}
+$('#rswgo').onclick=()=>modal('스톱워치 페이지로 연결할까요?','입력한 내용은 그대로 유지돼요.',[['취소'],['연결하기',rcdStart,1]],'','sm rk');
+let rcd;
+function rcdStart(){unlock();readForm();go(9);const el=$('#rcn'),t0=Date.now(),lb=$('#s9 .cl'),cx=$('#rccx');let last=-1;el.textContent='5';el.classList.remove('go');lb.style.visibility=cx.style.visibility='visible';clearInterval(rcd);
+ rcd=setInterval(()=>{const e=Date.now()-t0,k=Math.floor(e/1000);
+  if(k!==last){last=k;el.textContent=k<5?5-k:'시작!';el.classList.toggle('go',k>=5);lb.style.visibility=cx.style.visibility=k>=5?'hidden':'visible';beep(k<5?880:1320,k<5?.12:.45);el.style.animation='none';void el.offsetWidth;el.style.animation=''}
+  if(e>=5700){clearInterval(rcd);rswStart()}},40)}
+$('#rccx').onclick=()=>{clearInterval(rcd);go(7);fitCard()};
+$('#rbk8').onclick=()=>{if(rsw.run){rsw.acc+=Date.now()-rsw.at;rsw.run=false}try{rwl&&rwl.release()}catch(e){}cancelAnimationFrame(rraf);go(7);fitCard()};
+$('#rpp').onclick=()=>{if(rsw.run){rsw.acc+=Date.now()-rsw.at;rsw.run=false;try{rwl&&rwl.release()}catch(e){}}else{rsw.at=Date.now();rsw.run=true;rlock()}rpaint()};
+function rswFinish(){if(rsw.run){rsw.acc+=Date.now()-rsw.at;rsw.run=false}try{rwl&&rwl.release()}catch(e){}cancelAnimationFrame(rraf);
+ const t=Math.floor(rsw.acc/1000);$('#rfmn').value=two(Math.floor(t/60));$('#rfsc').value=two(t%60);
+ ['#rfmn','#rfsc'].forEach(q=>$(q).dispatchEvent(new Event('input',{bubbles:true})));readForm();renderCard();beep(660,.15);go(7);fitCard();done('운동 시간이 입력되었어요.')}
+$('#rstop').onclick=()=>modal('운동을 종료할까요?','운동 시간이 기록 카드에 입력돼요.',[['계속 운동하기'],['운동 종료',rswFinish,1]],'','sm rk');
 /* ===== init (runs only while the record view is shown) ===== */
 const shown=()=>$('#s7').classList.contains('on');
 window.resetRecord=()=>{S.tpl=1;F=blank();P.img=null;P.zoom=1;P.ox=P.oy=0;$('#rzm').value=1};
