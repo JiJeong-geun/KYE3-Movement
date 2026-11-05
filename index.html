@@ -105,7 +105,7 @@ h2{font-size:15px;margin:28px 0 12px;font-weight:800}
 #rov .tm{font-weight:900;font-variant-numeric:tabular-nums;line-height:1;letter-spacing:-.02em}
 #rov .kv span{display:block;font-size:8.5px;letter-spacing:.16em;font-weight:800;margin-bottom:2px}#rov .kv b{font-size:12px;font-weight:800;overflow-wrap:anywhere}
 #rov .row3{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
-#rov .rt div{white-space:pre-wrap}#rov .rt{font-weight:400;line-height:1.45;overflow-wrap:anywhere}#rov .rt b{display:block;font-weight:900;letter-spacing:.04em;margin-bottom:2px}#rov .rt i{display:block;font-style:normal;margin-bottom:3px}
+#rov .rg{display:grid;grid-template-columns:max-content minmax(0,1fr);white-space:pre-wrap}#rov .rg span:nth-child(odd){text-align:right}#rov .rg span:nth-child(odd):not(:empty){padding-right:.3em}#rov .rt{font-weight:400;line-height:1.45;overflow-wrap:anywhere}#rov .rt b{display:block;font-weight:900;letter-spacing:.04em;margin-bottom:2px}#rov .rt i{display:block;font-style:normal;margin-bottom:3px}
 #rov .bt{border-top:1px solid rgba(255,255,255,.7);padding-top:10px}
 .ctl{display:grid;grid-template-columns:1fr 1fr auto;align-items:center;gap:8px;margin-top:14px}.ctl .b{white-space:nowrap;letter-spacing:0;padding:0 4px}.ctl #rrm{width:auto;min-width:52px;padding:0 10px;border-color:#A0A0A0;font-weight:400}.ctl label.b{display:flex;align-items:center;justify-content:center;cursor:pointer}
 .zm{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:13px;font-weight:800;letter-spacing:.04em}.zm input{flex:1;accent-color:#000}#s7 h2+.ctl{margin-top:0}#s7 .zm{margin-top:26px}.zm span{white-space:nowrap;flex:none}.zm input{min-width:0}
@@ -139,7 +139,7 @@ input[type=date].in{text-align:left;line-height:43px}
 #rmov .tm{font-weight:900;font-variant-numeric:tabular-nums;line-height:1;letter-spacing:-.02em}
 #rmov .kv span{display:block;font-size:8.5px;letter-spacing:.16em;font-weight:800;margin-bottom:2px}#rmov .kv b{font-size:12px;font-weight:800;overflow-wrap:anywhere}
 #rmov .row3{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
-#rmov .rt div{white-space:pre-wrap}#rmov .rt{font-weight:400;line-height:1.45;overflow-wrap:anywhere}#rmov .rt b{display:block;font-weight:900;letter-spacing:.04em;margin-bottom:2px}#rmov .rt i{display:block;font-style:normal;margin-bottom:3px}
+#rmov .rg{display:grid;grid-template-columns:max-content minmax(0,1fr);white-space:pre-wrap}#rmov .rg span:nth-child(odd){text-align:right}#rmov .rg span:nth-child(odd):not(:empty){padding-right:.3em}#rmov .rt{font-weight:400;line-height:1.45;overflow-wrap:anywhere}#rmov .rt b{display:block;font-weight:900;letter-spacing:.04em;margin-bottom:2px}#rmov .rt i{display:block;font-style:normal;margin-bottom:3px}
 #rmov .bt{border-top:1px solid rgba(255,255,255,.7);padding-top:10px}
 #rmov{user-select:none;-webkit-user-select:none}
 #rmini{position:fixed;top:env(safe-area-inset-top,0px);left:50%;width:min(100%,430px);padding:8px 20px;background:#fff;z-index:15;box-shadow:0 8px 8px -8px rgba(0,0,0,.14);transform:translate(-50%,-110%);opacity:0;visibility:hidden;pointer-events:none;transition:transform .2s ease,opacity .2s ease,visibility 0s .2s}
@@ -541,7 +541,7 @@ const S={tpl:1};
 const P={img:null,zoom:1,ox:0,oy:0};
 
 /* ===== input form ===== */
-const SAMPLE_LINES=['10 Dumbbell Thruster','12 Push-Ups','15 Air Squats','30 sec Plank'];
+const SAMPLE_LINES=[['10','Dumbbell Thruster'],['12','Push-Ups'],['15','Air Squats'],['20','Pull-Ups']].map(([a,b])=>({a,b}));
 function readForm(){F.date=$('#rfd').value;F.min=$('#rfmn').value;F.sec=$('#rfsc').value;F.int=$('#rfin').value;F.head=$('#rfhd').value;F.sub=$('#rfsb').value;
  F.lines=$$('#rlines .lr').map(r=>({r:r.querySelector('.lr-r').value,u:r.querySelector('.lr-u').value,n:r.querySelector('.lr-n').value}))}
 function renderLines(){
@@ -564,7 +564,7 @@ $('#rqk').onclick=e=>{const b=e.target.closest('.c');if(!b)return;$('#rfin').val
 
 /* card data: only what the user typed (KYE3 logo and slogan are fixed inside the card templates) */
 function data(){
- const L=F.lines.filter(l=>l.r.trim()||l.u.trim()||l.n.trim()).map(l=>[(l.r.trim()+l.u.trimEnd()).trim(),l.n.trim()].filter(Boolean).join(' '));
+ const L=F.lines.filter(l=>l.r.trim()||l.u.trim()||l.n.trim()).map(l=>({a:(l.r.trim()+l.u.trimEnd()).trim(),b:l.n.trim()}));
  const mn=F.min.trim(),sc=F.sec.trim();
  const has=!!(F.head.trim()||F.sub.trim()||F.int.trim()||L.length||+mn||+sc);
  if(!has)return{sample:true,t:'32:15',dt:cdate(F.date),int:'MODERATE',head:'3 ROUNDS',sub:'',lines:SAMPLE_LINES};
@@ -573,8 +573,8 @@ function data(){
 /* ===== card templates ===== */
 const rtFs=n=>n<=3?14.5:n<=4?14:n<=5?13:n<=6?12:11;
 const kv=(k,v)=>`<div class="kv"><span>${k}</span><b>${esc(v)}</b></div>`;
-const rtH=(d,x=1,al='')=>`<div class="rt" style="font-size:${rtFs(d.lines.length)*x}px;${al}">${d.head?`<b>${esc(d.head)}</b>`:''}${d.sub?`<i>${esc(d.sub)}</i>`:''}${d.lines.map(l=>`<div>${esc(l)}</div>`).join('')}</div>`;
-const rtI=(d,fs=12)=>`<div class="rt" style="font-size:${fs}px;text-align:center">${d.head?`<b style="display:block">${esc(d.head)}</b>`:''}${d.sub?esc(d.sub)+(d.lines.length?': ':''):''}${d.lines.map(esc).join(' / ')}</div>`;
+const rtH=(d,x=1,al='')=>`<div class="rt" style="font-size:${rtFs(d.lines.length)*x}px;${al}">${d.head?`<b>${esc(d.head)}</b>`:''}${d.sub?`<i>${esc(d.sub)}</i>`:''}<div class="rg">${d.lines.map(l=>`<span>${esc(l.a)}</span><span>${esc(l.b)}</span>`).join('')}</div></div>`;
+const rtI=(d,fs=12)=>`<div class="rt" style="font-size:${fs}px;text-align:center">${d.head?`<b style="display:block">${esc(d.head)}</b>`:''}${d.sub?esc(d.sub)+(d.lines.length?': ':''):''}${d.lines.map(l=>esc([l.a,l.b].filter(Boolean).join(' '))).join(' / ')}</div>`;
 const sc=(t,h)=>`<div class="sc" style="${t?'top:0':'bottom:0'};height:${h}px;background:linear-gradient(${t?'180deg':'0deg'},rgba(0,0,0,.72),rgba(0,0,0,0))"></div>`;
 const TPL=[
  d=>sc(1,190)+sc(0,330)+`<div class="a" style="top:58px;left:0;right:0;text-align:center"><div class="lg">K<span class="ky">Y</span>E3</div></div><div class="a" style="top:196px;left:0;right:0;text-align:center"><div class="lb" style="visibility:hidden">&nbsp;</div><div class="tm" style="font-size:${d.t.length>5?72:96}px;margin-top:6px">${d.t}</div></div><div class="a" style="left:28px;right:28px;bottom:66px"><div class="row3">${kv('DATE',d.dt)}${kv('INTENSITY',d.int)}</div>${rtH(d)}</div>`,
