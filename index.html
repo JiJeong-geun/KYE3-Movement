@@ -491,8 +491,7 @@ syncChips();syncDur();$('#wp').scrollTop=S.dur*WH;
  b.onclick=e=>{e.stopPropagation();set(l.hidden)};
  document.addEventListener('click',e=>{if(!l.hidden&&!w.contains(e.target))set(false)});
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!l.hidden){set(false);b.focus()}});
- l.onclick=e=>{const a=e.target.closest('a');if(!a)return;e.preventDefault();set(false);
-  modal('기록 카드 만들기 페이지로 이동할까요?','현재 화면의 내용은 저장되지 않고 사라집니다.',[['취소'],['이동하기',()=>navTo(a.getAttribute('href')),1]],'','sm')}})();
+ l.onclick=e=>{const a=e.target.closest('a');if(!a)return;e.preventDefault();set(false);navTo(a.getAttribute('href'))}})();
 /* ===== RECORD VIEW (#record) ===== */
 (function(){
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
