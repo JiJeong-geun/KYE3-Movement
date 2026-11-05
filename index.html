@@ -120,7 +120,7 @@ input[type=date].in{text-align:left;line-height:43px}
 #raddl{margin-top:2px}
 .cap{font-size:12px;color:#6b6b6b;margin-top:6px}
 .hint{font-size:13px;color:#6b6b6b;text-align:center;margin:2px 0 0;min-height:19px}
-.fm+h2{margin-top:32px}#s7 .ind+h2{margin-top:12px}.zm+.note{margin-top:24px}
+.fm+h2{margin-top:32px}#s7 .dv{height:1px;background:#E5E5E5;margin:22px 0 0}#s7 .dv+h2{margin-top:22px}.fm+.note{margin-top:22px}#s7 .ind+h2{margin-top:12px}.zm+.note{margin-top:24px}
 #s7 .h{border-bottom:0;margin-bottom:16px}
 </style></head><body>
 <div id="app">
@@ -186,6 +186,10 @@ input[type=date].in{text-align:left;line-height:43px}
 <div class="pv"><button class="ar" id="rprev" aria-label="이전 디자인"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H4M10 6l-6 6 6 6"/></svg></button><div id="rpvw"><div id="rcw"><div id="rcard"><canvas id="rbgc" width="1080" height="1920"></canvas><div id="rov"></div></div></div></div><button class="ar" id="rnext" aria-label="다음 디자인"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg></button></div>
 <div class="ind" id="rind"><b>01</b> / 07</div>
 
+<h2>배경 바꾸기</h2>
+<div class="ctl"><label class="b bl">직접 사진 촬영<input type="file" accept="image/*" capture="environment" id="rcam" hidden></label><label class="b bl">사진첩에서 선택<input type="file" accept="image/*" id="rupl" hidden></label><button class="b bl" id="rrm">삭제</button></div>
+<div class="zm"><span>사진 확대</span><input type="range" id="rzm" min="1" max="3" step=".01" value="1" aria-label="사진 확대"></div>
+<div class="dv" role="separator"></div>
 <h2>운동 정보 입력</h2>
 <div class="fm" id="rfm">
  <div class="fd"><label for="rfd">날짜</label><input class="in" id="rfd" type="date"></div>
@@ -199,9 +203,6 @@ input[type=date].in{text-align:left;line-height:43px}
   <button type="button" class="b bl" id="raddl">+ 종목 추가</button><div class="cap">횟수는 비워도 돼요 · 최대 10개까지 추가할 수 있어요.</div></div>
 </div>
 
-<h2>배경 바꾸기</h2>
-<div class="ctl"><label class="b bl">직접 사진 촬영<input type="file" accept="image/*" capture="environment" id="rcam" hidden></label><label class="b bl">사진첩에서 선택<input type="file" accept="image/*" id="rupl" hidden></label><button class="b bl" id="rrm">삭제</button></div>
-<div class="zm"><span>사진 확대</span><input type="range" id="rzm" min="1" max="3" step=".01" value="1" aria-label="사진 확대"></div>
 <div class="note"><div class="bl"><span>·</span><span>@kye3_official 계정을 태그하면 저희도 함께 공유해드려요.</span></div><div class="bl"><span>·</span><span>사진은 내 기기에만 저장됩니다.</span></div></div>
 <div class="sp"></div>
 <button class="b p bl" id="rdl" style="margin-top:20px">이미지 저장</button>
@@ -491,7 +492,7 @@ syncChips();syncDur();$('#wp').scrollTop=S.dur*WH;
  document.addEventListener('click',e=>{if(!l.hidden&&!w.contains(e.target))set(false)});
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!l.hidden){set(false);b.focus()}});
  l.onclick=e=>{const a=e.target.closest('a');if(!a)return;e.preventDefault();set(false);
-  modal('기록 카드 만들기 페이지로 이동할까요?','현재 화면의 내용은 저장되지 않고 사라집니다.',[['취소'],['이동하기',()=>{location.href=a.getAttribute('href')},1]],'','sm')}})();
+  modal('기록 카드 만들기 페이지로 이동할까요?','현재 화면의 내용은 저장되지 않고 사라집니다.',[['취소'],['이동하기',()=>navTo(a.getAttribute('href')),1]],'','sm')}})();
 /* ===== RECORD VIEW (#record) ===== */
 (function(){
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
@@ -603,6 +604,7 @@ $('#rnw').onclick=()=>modal('입력을 초기화할까요?','입력한 내용과
 
 /* ===== init (runs only while the record view is shown) ===== */
 const shown=()=>$('#s7').classList.contains('on');
+window.resetRecord=()=>{F=blank();P.img=null;P.zoom=1;P.ox=P.oy=0;$('#rzm').value=1};
 window.initRecord=()=>{document.title='카이3 운동 기록';syncForm();drawBG();fitCard();renderCard()};
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{if(shown()){fitCard();renderCard()}});
 if(document.fonts&&document.fonts.addEventListener)document.fonts.addEventListener('loadingdone',()=>{if(shown())renderCard()});
@@ -613,9 +615,14 @@ if(document.fonts&&document.fonts.addEventListener)document.fonts.addEventListen
  document.addEventListener('click',e=>{if(!l.hidden&&!w.contains(e.target))set(false)});
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!l.hidden){set(false);b.focus()}});
  l.onclick=e=>{const a=e.target.closest('a');if(!a)return;e.preventDefault();set(false);
-  modal('랜덤 운동 뽑기 페이지로 이동할까요?','현재 화면의 내용은 저장되지 않고 사라집니다.',[['취소'],['이동하기',()=>{location.href=a.getAttribute('href')},1]],'','sm')}})();
+  modal('랜덤 운동 뽑기 페이지로 이동할까요?','현재 화면의 내용은 저장되지 않고 사라집니다.',[['취소'],['이동하기',()=>navTo(a.getAttribute('href')),1]],'','sm')}})();
 })();
 /* ===== routing: movement.kye3.com (random picker) / movement.kye3.com/#record (record card) ===== */
-if(location.hash==='#record'){go(7);$('#pop').classList.remove('on');window.initRecord()}
-addEventListener('hashchange',()=>location.reload());
+let curView=location.hash==='#record'?'#record':'#home';
+function route(h){if(h===curView)return;curView=h;
+ if(h==='#record'){window.resetRecord();go(7);window.initRecord()}
+ else{clearInterval(cd);cancelAnimationFrame(raf);try{wl&&wl.release()}catch(e){}reset();document.title='카이3 랜덤 운동 뽑기';go(1)}}
+function navTo(h){h=h==='#record'?'#record':'#home';try{location.hash=h}catch(e){}route(h)}
+addEventListener('hashchange',()=>route(location.hash==='#record'?'#record':'#home'));
+if(curView==='#record'){go(7);$('#pop').classList.remove('on');window.initRecord()}
 </script></body></html>
