@@ -505,7 +505,7 @@ const MAXL=10;
 const blank=()=>({date:todayStr(),min:'',sec:'',int:'',head:'',sub:'',lines:[{r:'',n:''},{r:'',n:''},{r:'',n:''}]});
 let F=blank();
 const S={tpl:1};
-try{S.tpl=clamp(+localStorage.getItem('kye3tpl')||1,1,7)}catch(e){}
+
 const P={img:null,zoom:1,ox:0,oy:0};
 
 /* ===== input form ===== */
@@ -559,7 +559,7 @@ const LIM=[335,260,100,96,380,135,270];
 function fitText(o){const blocks=o.querySelectorAll(':scope > .a'),b=blocks[blocks.length-1],rt=b&&b.querySelector('.rt');if(!rt)return;
  const lim=LIM[S.tpl-1];let f=parseFloat(getComputedStyle(rt).fontSize);
  while(f>7&&b.offsetTop<lim){f-=.5;rt.style.fontSize=f+'px'}}
-function renderCard(anim){const o=$('#rov'),d=data();o.innerHTML=TPL[S.tpl-1](d);fitText(o);{const t=$('#rt2t'),b=$('#rt2b');if(t&&b){let f=parseFloat(t.style.fontSize);while(f>70&&t.offsetTop+t.offsetHeight>b.offsetTop-14){f-=4;t.style.fontSize=f+'px'}}}if(anim){o.classList.remove('sw2');void o.offsetWidth;o.classList.add('sw2');o.addEventListener('animationend',()=>o.classList.remove('sw2'),{once:true})}$('#rind').innerHTML='<b>'+two(S.tpl)+'</b> / 07<span class="nm">'+NAMES[S.tpl-1]+'</span>';try{localStorage.setItem('kye3tpl',S.tpl)}catch(e){}}
+function renderCard(anim){const o=$('#rov'),d=data();o.innerHTML=TPL[S.tpl-1](d);fitText(o);{const t=$('#rt2t'),b=$('#rt2b');if(t&&b){let f=parseFloat(t.style.fontSize);while(f>70&&t.offsetTop+t.offsetHeight>b.offsetTop-14){f-=4;t.style.fontSize=f+'px'}}}if(anim){o.classList.remove('sw2');void o.offsetWidth;o.classList.add('sw2');o.addEventListener('animationend',()=>o.classList.remove('sw2'),{once:true})}$('#rind').innerHTML='<b>'+two(S.tpl)+'</b> / 07<span class="nm">'+NAMES[S.tpl-1]+'</span>';}
 function setTpl(n){S.tpl=((n-1+7)%7)+1;renderCard(true)}
 $('#rprev').onclick=()=>setTpl(S.tpl-1);$('#rnext').onclick=()=>setTpl(S.tpl+1);
 function fitCard(){const w=$('#rpvw'),k=w.parentElement.clientWidth>0?w.clientWidth/360:1;$('#rcw').style.transform=`scale(${k})`;w.style.height=640*k+'px'}
@@ -603,7 +603,7 @@ $('#rnw').onclick=()=>modal('입력을 초기화할까요?','입력한 내용과
 
 /* ===== init (runs only while the record view is shown) ===== */
 const shown=()=>$('#s7').classList.contains('on');
-window.resetRecord=()=>{F=blank();P.img=null;P.zoom=1;P.ox=P.oy=0;$('#rzm').value=1};
+window.resetRecord=()=>{S.tpl=1;F=blank();P.img=null;P.zoom=1;P.ox=P.oy=0;$('#rzm').value=1};
 window.initRecord=()=>{syncForm();drawBG();fitCard();renderCard()};
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{if(shown()){fitCard();renderCard()}});
 if(document.fonts&&document.fonts.addEventListener)document.fonts.addEventListener('loadingdone',()=>{if(shown())renderCard()});
