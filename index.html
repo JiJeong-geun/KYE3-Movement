@@ -105,7 +105,7 @@ h2{font-size:15px;margin:28px 0 12px;font-weight:800}
 #rov .tm{font-weight:900;font-variant-numeric:tabular-nums;line-height:1;letter-spacing:-.02em}
 #rov .kv span{display:block;font-size:8.5px;letter-spacing:.16em;font-weight:800;margin-bottom:2px}#rov .kv b{font-size:12px;font-weight:800;overflow-wrap:anywhere}
 #rov .row3{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
-#rov .rt{font-weight:400;line-height:1.45;overflow-wrap:anywhere}#rov .rt b{display:block;font-weight:900;letter-spacing:.04em;margin-bottom:2px}#rov .rt i{display:block;font-style:normal;margin-bottom:3px}
+#rov .rt div{white-space:pre-wrap}#rov .rt{font-weight:400;line-height:1.45;overflow-wrap:anywhere}#rov .rt b{display:block;font-weight:900;letter-spacing:.04em;margin-bottom:2px}#rov .rt i{display:block;font-style:normal;margin-bottom:3px}
 #rov .bt{border-top:1px solid rgba(255,255,255,.7);padding-top:10px}
 .ctl{display:grid;grid-template-columns:1fr 1fr auto;align-items:center;gap:8px;margin-top:14px}.ctl .b{white-space:nowrap;letter-spacing:0;padding:0 4px}.ctl #rrm{width:auto;min-width:52px;padding:0 10px;border-color:#A0A0A0;font-weight:400}.ctl label.b{display:flex;align-items:center;justify-content:center;cursor:pointer}
 .zm{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:13px;font-weight:800;letter-spacing:.04em}.zm input{flex:1;accent-color:#000}#s7 h2+.ctl{margin-top:0}#s7 .zm{margin-top:26px}.zm span{white-space:nowrap;flex:none}.zm input{min-width:0}
@@ -122,11 +122,11 @@ input[type=date].in{text-align:left;line-height:43px}
 .tm2 .in{text-align:center;font-variant-numeric:tabular-nums}
 .qk{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
 .qk .c{min-height:34px;font-size:11px;font-weight:700;letter-spacing:.02em;padding:2px}
-.lr{display:grid;grid-template-columns:84px 1fr 40px;gap:6px;margin-bottom:6px}
+.lr{display:grid;grid-template-columns:76px 56px 1fr 40px;gap:6px;margin-bottom:6px}
 .lx{height:48px;border:1px solid #D9D9D9;background:#fff;color:#444;border-radius:8px;font-size:20px;line-height:1;padding:0}
 .lx:active{transform:scale(.97)}
 #raddl{margin-top:2px}
-.cap{font-size:12px;color:#6b6b6b;margin-top:6px}
+.cap{font-size:12px;color:#6b6b6b;margin-top:6px}.k+.cap{margin:0 0 10px}
 .hint{font-size:13px;color:#6b6b6b;text-align:center;margin:2px 0 0;min-height:19px}
 .fm+h2{margin-top:32px}
 #s7 .stk+h2{margin-top:12px}
@@ -139,7 +139,7 @@ input[type=date].in{text-align:left;line-height:43px}
 #rmov .tm{font-weight:900;font-variant-numeric:tabular-nums;line-height:1;letter-spacing:-.02em}
 #rmov .kv span{display:block;font-size:8.5px;letter-spacing:.16em;font-weight:800;margin-bottom:2px}#rmov .kv b{font-size:12px;font-weight:800;overflow-wrap:anywhere}
 #rmov .row3{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
-#rmov .rt{font-weight:400;line-height:1.45;overflow-wrap:anywhere}#rmov .rt b{display:block;font-weight:900;letter-spacing:.04em;margin-bottom:2px}#rmov .rt i{display:block;font-style:normal;margin-bottom:3px}
+#rmov .rt div{white-space:pre-wrap}#rmov .rt{font-weight:400;line-height:1.45;overflow-wrap:anywhere}#rmov .rt b{display:block;font-weight:900;letter-spacing:.04em;margin-bottom:2px}#rmov .rt i{display:block;font-style:normal;margin-bottom:3px}
 #rmov .bt{border-top:1px solid rgba(255,255,255,.7);padding-top:10px}
 #rmov{user-select:none;-webkit-user-select:none}
 #rmini{position:fixed;top:env(safe-area-inset-top,0px);left:50%;width:min(100%,430px);padding:8px 20px;background:#fff;z-index:15;box-shadow:0 8px 8px -8px rgba(0,0,0,.14);transform:translate(-50%,-110%);opacity:0;visibility:hidden;pointer-events:none;transition:transform .2s ease,opacity .2s ease,visibility 0s .2s}
@@ -230,8 +230,8 @@ input[type=date].in{text-align:left;line-height:43px}
   <div class="qk" id="rqk"><button type="button" class="c" data-v="LOW">LOW</button><button type="button" class="c" data-v="MODERATE">MODERATE</button><button type="button" class="c" data-v="HIGH">HIGH</button><button type="button" class="c" data-v="EXTREME">EXTREME</button></div></div>
  <div class="fd"><label for="rfhd">운동 유형</label><input class="in" id="rfhd" maxlength="30" placeholder="HYROX, EMOM, Interval, CrossFit 등" autocomplete="off"></div>
  <div class="fd"><label for="rfsb">세부 방식<span class="opt">(선택)</span></label><input class="in" id="rfsb" maxlength="40" placeholder="예) 매번 25초 휴식" autocomplete="off"></div>
- <div class="fd"><span class="k">운동 종목</span><div id="rlines"></div>
-  <button type="button" class="b bl" id="raddl">+ 종목 추가</button><div class="cap">횟수는 비워도 돼요 · 최대 10개까지 추가할 수 있어요.</div></div>
+ <div class="fd"><span class="k">운동 종목</span><div class="cap">횟수와 단위는 비워도 돼요 · 최대 10개까지 추가할 수 있어요.</div><div id="rlines"></div>
+  <button type="button" class="b bl" id="raddl">+ 종목 추가</button></div>
 </div>
 
 <div class="note"><div class="bl"><span>·</span><span>@kye3_official 계정을 태그하면 저희도 함께 공유해드려요.</span></div><div class="bl"><span>·</span><span>사진은 내 기기에만 저장됩니다.</span></div></div>
@@ -534,7 +534,7 @@ const MON=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DE
 const todayStr=()=>{const d=new Date();return `${d.getFullYear()}-${two(d.getMonth()+1)}-${two(d.getDate())}`};
 const cdate=s=>{const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(s)||/^(\d{4})-(\d{2})-(\d{2})$/.exec(todayStr());return `${MON[+m[2]-1]} ${m[3]}, ${m[1]}`};
 const MAXL=10;
-const blank=()=>({date:todayStr(),min:'',sec:'',int:'',head:'',sub:'',lines:[{r:'',n:''},{r:'',n:''},{r:'',n:''}]});
+const blank=()=>({date:todayStr(),min:'',sec:'',int:'',head:'',sub:'',lines:[{r:'',u:'',n:''},{r:'',u:'',n:''},{r:'',u:'',n:''}]});
 let F=blank();
 const S={tpl:1};
 
@@ -543,16 +543,16 @@ const P={img:null,zoom:1,ox:0,oy:0};
 /* ===== input form ===== */
 const SAMPLE_LINES=['10 Dumbbell Thruster','12 Push-Ups','15 Air Squats','30 sec Plank'];
 function readForm(){F.date=$('#rfd').value;F.min=$('#rfmn').value;F.sec=$('#rfsc').value;F.int=$('#rfin').value;F.head=$('#rfhd').value;F.sub=$('#rfsb').value;
- F.lines=$$('#rlines .lr').map(r=>({r:r.querySelector('.lr-r').value,n:r.querySelector('.lr-n').value}))}
+ F.lines=$$('#rlines .lr').map(r=>({r:r.querySelector('.lr-r').value,u:r.querySelector('.lr-u').value,n:r.querySelector('.lr-n').value}))}
 function renderLines(){
- $('#rlines').innerHTML=F.lines.map((l,i)=>`<div class="lr"><input class="in lr-r" maxlength="12" placeholder="횟수" value="${esc(l.r)}" autocomplete="off" aria-label="${i+1}번째 운동 횟수"><input class="in lr-n" maxlength="40" placeholder="운동 이름" value="${esc(l.n)}" autocomplete="off" aria-label="${i+1}번째 운동 이름"><button type="button" class="lx" data-i="${i}" aria-label="${i+1}번째 운동 삭제">×</button></div>`).join('');
+ $('#rlines').innerHTML=F.lines.map((l,i)=>`<div class="lr"><input class="in lr-r" inputmode="numeric" maxlength="12" placeholder="횟수" value="${esc(l.r)}" autocomplete="off" aria-label="${i+1}번째 운동 횟수"><input class="in lr-u" maxlength="6" placeholder="개" value="${esc(l.u||'')}" autocomplete="off" autocapitalize="off" aria-label="${i+1}번째 운동 단위(선택)"><input class="in lr-n" maxlength="40" placeholder="운동 이름" value="${esc(l.n)}" autocomplete="off" aria-label="${i+1}번째 운동 이름"><button type="button" class="lx" data-i="${i}" aria-label="${i+1}번째 운동 삭제">×</button></div>`).join('');
  $('#raddl').disabled=F.lines.length>=MAXL}
 function syncForm(){$('#rfd').value=F.date;$('#rfmn').value=F.min;$('#rfsc').value=F.sec;$('#rfin').value=F.int;$('#rfhd').value=F.head;$('#rfsb').value=F.sub;renderLines();syncQk()}
 function syncQk(){const v=$('#rfin').value.trim().toUpperCase();$$('#rqk .c').forEach(b=>b.classList.toggle('on',b.dataset.v===v))}
-function addLine(){readForm();if(F.lines.length>=MAXL)return;F.lines.push({r:'',n:''});renderLines();const r=$$('#rlines .lr-r');r[r.length-1].focus()}
+function addLine(){readForm();if(F.lines.length>=MAXL)return;F.lines.push({r:'',u:'',n:''});renderLines();const r=$$('#rlines .lr-r');r[r.length-1].focus()}
 $('#raddl').onclick=addLine;
-$('#rlines').onclick=e=>{const x=e.target.closest('.lx');if(!x)return;readForm();F.lines.splice(+x.dataset.i,1);if(!F.lines.length)F.lines.push({r:'',n:''});renderLines();renderCard()};
-$('#rlines').addEventListener('keydown',e=>{if(e.key!=='Enter'||!e.target.matches('.lr-n,.lr-r'))return;e.preventDefault();
+$('#rlines').onclick=e=>{const x=e.target.closest('.lx');if(!x)return;readForm();F.lines.splice(+x.dataset.i,1);if(!F.lines.length)F.lines.push({r:'',u:'',n:''});renderLines();renderCard()};
+$('#rlines').addEventListener('keydown',e=>{if(e.key!=='Enter'||!e.target.matches('.lr-n,.lr-r,.lr-u'))return;e.preventDefault();
  const ins=$$('#rlines input'),i=ins.indexOf(e.target);if(i===ins.length-1){if(e.target.value.trim())addLine()}else ins[i+1].focus()});
 $('#rfm').addEventListener('input',e=>{const t=e.target;
  if(t.id==='rfmn')t.value=t.value.replace(/\D/g,'');
@@ -564,7 +564,7 @@ $('#rqk').onclick=e=>{const b=e.target.closest('.c');if(!b)return;$('#rfin').val
 
 /* card data: only what the user typed (KYE3 logo and slogan are fixed inside the card templates) */
 function data(){
- const L=F.lines.filter(l=>l.r.trim()||l.n.trim()).map(l=>[l.r.trim(),l.n.trim()].filter(Boolean).join(' '));
+ const L=F.lines.filter(l=>l.r.trim()||l.u.trim()||l.n.trim()).map(l=>[(l.r.trim()+l.u.trimEnd()).trim(),l.n.trim()].filter(Boolean).join(' '));
  const mn=F.min.trim(),sc=F.sec.trim();
  const has=!!(F.head.trim()||F.sub.trim()||F.int.trim()||L.length||+mn||+sc);
  if(!has)return{sample:true,t:'32:15',dt:cdate(F.date),int:'MODERATE',head:'3 ROUNDS',sub:'',lines:SAMPLE_LINES};
