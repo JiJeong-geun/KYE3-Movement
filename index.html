@@ -538,7 +538,7 @@ const TPL=[
  d=>sc(1,300)+sc(0,300)+`<div class="a" style="top:96px;left:0;right:0;text-align:center"><div style="font-weight:900;font-size:78px;letter-spacing:10px;padding-left:10px;line-height:1">K<span class="ky">Y</span>E3</div><div style="width:48px;height:2px;background:#fff;margin:14px auto 0"></div><div class="tm" style="font-size:44px;margin-top:18px">${d.t}</div></div><div class="a" style="left:30px;right:30px;bottom:66px;text-align:center"><div class="lb" style="margin-bottom:10px">${esc(d.dt)} / ${esc(d.int)}</div>${rtI(d)}<div style="font-weight:800;font-size:10px;letter-spacing:.24em;margin-top:12px;line-height:1.5">KEEP MOVING FORWARD<br>WE NEVER GIVE UP</div></div>`
 ];
 const NAMES=['미니멀 클래식','볼드 타이포그래피','에디토리얼 그리드','데이터 블록','센터 스테이트먼트','다이나믹 레이아웃','프리미엄 시그니처'];
-function renderCard(anim){const o=$('#ov');o.innerHTML=TPL[S.tpl-1](data());o.insertAdjacentHTML('afterbegin',poopLayers(P));{const t=$('#t2t'),b=$('#t2b');if(t&&b){let f=parseFloat(t.style.fontSize);while(f>70&&t.offsetTop+t.offsetHeight>b.offsetTop-14){f-=4;t.style.fontSize=f+'px'}}}if(anim){o.classList.remove('sw2');void o.offsetWidth;o.classList.add('sw2');o.addEventListener('animationend',()=>o.classList.remove('sw2'),{once:true})}$('#ind').innerHTML='<b>'+two(S.tpl)+'</b> / 07<span class="nm">'+NAMES[S.tpl-1]+'</span>';try{localStorage.setItem('kye3tpl',S.tpl)}catch(e){}}
+function renderCard(anim){const o=$('#ov');o.innerHTML=TPL[S.tpl-1](data());o.insertAdjacentHTML('afterbegin',poopLayers(P));{const t=$('#t2t'),b=$('#t2b');if(t&&b){let f=parseFloat(t.style.fontSize);while(f>70&&t.offsetTop+t.offsetHeight>b.offsetTop-14){f-=4;t.style.fontSize=f+'px'}}}if(anim){o.classList.remove('sw2');void o.offsetWidth;o.classList.add('sw2');o.addEventListener('animationend',()=>o.classList.remove('sw2'),{once:true})}$('#ind').innerHTML='<b>'+two(S.tpl)+'</b> / 07';try{localStorage.setItem('kye3tpl',S.tpl)}catch(e){}}
 function setTpl(n){S.tpl=((n-1+7)%7)+1;renderCard(true)}
 $('#prev').onclick=()=>setTpl(S.tpl-1);$('#next').onclick=()=>setTpl(S.tpl+1);
 $$('#bgsw3 .bgc-btn').forEach(b=>b.onclick=()=>{const k=b.dataset.k;if(k==='one')P.poop=!P.poop;else P.many=P.many?null:genPoops();$$('#bgsw3 .bgc-btn').forEach(x=>x.setAttribute('aria-pressed',x.dataset.k==='one'?P.poop:!!P.many));renderCard()});
@@ -663,7 +663,7 @@ const LIM=[335,260,100,96,380,135,270];
 function fitText(o){const blocks=o.querySelectorAll(':scope > .a'),b=blocks[blocks.length-1],rt=b&&b.querySelector('.rt');if(!rt)return;
  const lim=LIM[S.tpl-1];let f=parseFloat(getComputedStyle(rt).fontSize);
  while(f>7&&b.offsetTop<lim){f-=.5;rt.style.fontSize=f+'px'}}
-function renderCard(anim){const o=$('#rov'),d=data();o.innerHTML=TPL[S.tpl-1](d);fitText(o);o.insertAdjacentHTML('afterbegin',poopLayers(P));{const t=$('#rt2t'),b=$('#rt2b');if(t&&b){let f=parseFloat(t.style.fontSize);while(f>70&&t.offsetTop+t.offsetHeight>b.offsetTop-14){f-=4;t.style.fontSize=f+'px'}}}if(anim){o.classList.remove('sw2');void o.offsetWidth;o.classList.add('sw2');o.addEventListener('animationend',()=>o.classList.remove('sw2'),{once:true})}$('#rind').innerHTML='<b>'+two(S.tpl)+'</b> / 07<span class="nm">'+NAMES[S.tpl-1]+'</span>';syncMini();}
+function renderCard(anim){const o=$('#rov'),d=data();o.innerHTML=TPL[S.tpl-1](d);fitText(o);o.insertAdjacentHTML('afterbegin',poopLayers(P));{const t=$('#rt2t'),b=$('#rt2b');if(t&&b){let f=parseFloat(t.style.fontSize);while(f>70&&t.offsetTop+t.offsetHeight>b.offsetTop-14){f-=4;t.style.fontSize=f+'px'}}}if(anim){o.classList.remove('sw2');void o.offsetWidth;o.classList.add('sw2');o.addEventListener('animationend',()=>o.classList.remove('sw2'),{once:true})}$('#rind').innerHTML='<b>'+two(S.tpl)+'</b> / 07';syncMini();}
 function setTpl(n){S.tpl=((n-1+7)%7)+1;renderCard(true)}
 $('#rprev').onclick=()=>setTpl(S.tpl-1);$('#rnext').onclick=()=>setTpl(S.tpl+1);
 function fitCard(){const w=$('#rpvw'),k=w.parentElement.clientWidth>0?w.clientWidth/360:1;$('#rcw').style.transform=`scale(${k})`;w.style.height=640*k+'px';fitMini()}
@@ -707,9 +707,9 @@ $('#rnw').onclick=()=>modal('입력을 초기화할까요?','입력한 내용과
 
 
 /* ===== compact preview: appears at the top once the full card has scrolled out of view ===== */
-const mini=()=>{$('#rmov').innerHTML=$('#rov').innerHTML.replace(/ id="/g,' data-i="');const x=$('#rmbg').getContext('2d');x.imageSmoothingQuality='high';x.drawImage($('#rbgc'),0,0,360,640);$('#rmind').textContent=two(S.tpl)+' / 07 · '+NAMES[S.tpl-1]};
+const mini=()=>{$('#rmov').innerHTML=$('#rov').innerHTML.replace(/ id="/g,' data-i="');const x=$('#rmbg').getContext('2d');x.imageSmoothingQuality='high';x.drawImage($('#rbgc'),0,0,360,640);$('#rmind').textContent=two(S.tpl)+' / 07'};
 const syncMini=()=>{const m=$('#rmini');if(m&&m.classList.contains('on'))mini()};
-function fitMini(){$('#rmind').textContent=two(S.tpl)+' / 07 · '+NAMES[S.tpl-1];const mh=Math.min(innerHeight*.4,400),k=mh/640,bx=$('#rmbox');bx.style.width=360*k+'px';bx.style.height=mh+'px';$('#rmcw').style.transform=`scale(${k})`;document.documentElement.style.setProperty('--stk',$('#rmini').offsetHeight+'px')}
+function fitMini(){$('#rmind').textContent=two(S.tpl)+' / 07';const mh=Math.min(innerHeight*.4,400),k=mh/640,bx=$('#rmbox');bx.style.width=360*k+'px';bx.style.height=mh+'px';$('#rmcw').style.transform=`scale(${k})`;document.documentElement.style.setProperty('--stk',$('#rmini').offsetHeight+'px')}
 let mt=0;function onScroll(){if(mt)return;mt=requestAnimationFrame(()=>{mt=0;const m=$('#rmini');if(!shown()){m.classList.remove('on');return}
  const o=$('#rstk').getBoundingClientRect().bottom<40;if(o!==m.classList.contains('on')){m.classList.toggle('on',o);if(o){fitMini();mini()}}})}
 addEventListener('scroll',onScroll,{passive:true});
