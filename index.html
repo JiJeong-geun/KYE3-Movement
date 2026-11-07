@@ -110,6 +110,16 @@ h2{font-size:15px;margin:28px 0 12px;font-weight:800}
 #ov .rt{font-weight:400;line-height:1.45;overflow-wrap:anywhere}#ov .rt b{display:block;font-weight:900;letter-spacing:.04em;margin-bottom:2px}#ov .rt i{display:block;font-style:normal;margin-bottom:3px}
 #ov .bt{border-top:1px solid rgba(255,255,255,.7);padding-top:10px}
 .ctl{display:grid;grid-template-columns:1fr 1fr auto;align-items:center;gap:8px;margin-top:14px}.ctl .b{white-space:nowrap;letter-spacing:0;padding:0 4px}.ctl #rm{width:auto;min-width:52px;padding:0 10px;border-color:#A0A0A0;font-weight:400}.ctl label.b{display:flex;align-items:center;justify-content:center;cursor:pointer}
+.zm input[type=range]{-webkit-appearance:none;appearance:none;background:transparent;height:14px;margin:0;padding:0;cursor:pointer;--a:.5;--b:.5;--c:#F06292;--tr:linear-gradient(90deg,#E5E5E5 0 calc(7px + (100% - 14px)*var(--a)),var(--c) calc(7px + (100% - 14px)*var(--a)) calc(7px + (100% - 14px)*var(--b)),#E5E5E5 calc(7px + (100% - 14px)*var(--b)) 100%)}
+.zm input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:var(--tr)}
+.zm input[type=range]::-moz-range-track{height:6px;border-radius:3px;background:var(--tr)}
+.zm input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;box-sizing:border-box;width:14px;height:14px;margin-top:-4px;border-radius:50%;background:#000;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.25),0 1px 4px rgba(0,0,0,.3)}
+.zm input[type=range]::-moz-range-thumb{box-sizing:border-box;width:14px;height:14px;border-radius:50%;background:#000;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.25),0 1px 4px rgba(0,0,0,.3)}
+.zm input[type=range]::-webkit-slider-thumb{transition:transform .12s ease}
+.zm input[type=range]::-moz-range-thumb{transition:transform .12s ease}
+.zm input[type=range]:active::-webkit-slider-thumb{transform:scale(1.2857)}
+.zm input[type=range]:active::-moz-range-thumb{transform:scale(1.2857)}
+.zm input[type=range]:focus-visible{outline:2px solid #000;outline-offset:3px;border-radius:7px}
 .zm{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:13px;font-weight:800;letter-spacing:.04em}.zm input{flex:1;accent-color:#000}#s6 h2+.ctl{margin-top:0}#s6 .zm{margin-top:26px}.zm span{white-space:nowrap;flex:none}.zm input{min-width:0}
 .ind .nm{display:block;font-weight:400;letter-spacing:0;margin-top:2px}
 .ind b{font-weight:900}
@@ -272,7 +282,7 @@ body.dragging,body.dragging *{cursor:grabbing!important;-webkit-user-select:none
 <h2 style="margin:22px 0 10px">배경 바꾸기</h2>
 <div class="ctl"><label class="b bl">직접 사진 촬영<input type="file" accept="image/*" capture="environment" id="cam" hidden></label><label class="b bl">사진첩에서 선택<input type="file" accept="image/*" id="upl" hidden></label><button class="b bl" id="rm">삭제</button></div>
 <div class="note"><div class="bl"><span>·</span><span>@kye3_official 계정을 태그하면 저희도 함께 공유해드려요.</span></div></div>
-<div class="zm"><span>사진 확대</span><input type="range" id="zm" min="1" max="3" step=".01" value="1" aria-label="사진 확대"></div>
+<div class="zm"><span>사진 확대/축소</span><input type="range" id="zm" min="0" max="200" step="1" value="100" aria-label="사진 확대 및 축소"></div>
 <div class="sp"></div>
 <button class="b p bl" id="dl" style="margin-top:14px">이미지 저장</button>
 <div class="row"><button class="b bl" id="pg6">이전 페이지</button><button class="b bl" id="nw">처음으로 돌아가기</button></div>
@@ -289,7 +299,7 @@ body.dragging,body.dragging *{cursor:grabbing!important;-webkit-user-select:none
 <div class="dv"></div>
 <h2>배경 바꾸기</h2>
 <div class="ctl"><label class="b bl">직접 사진 촬영<input type="file" accept="image/*" capture="environment" id="rcam" hidden></label><label class="b bl">사진첩에서 선택<input type="file" accept="image/*" id="rupl" hidden></label><button class="b bl" id="rrm">삭제</button></div>
-<div class="zm"><span>사진 확대</span><input type="range" id="rzm" min="1" max="3" step=".01" value="1" aria-label="사진 확대"></div>
+<div class="zm"><span>사진 확대/축소</span><input type="range" id="rzm" min="0" max="200" step="1" value="100" aria-label="사진 확대 및 축소"></div>
 <div class="dv" role="separator"></div>
 <div class="fm" id="rfm">
  <div class="fd"><label for="rfmn">운동 시간</label>
@@ -464,6 +474,9 @@ const est=s=>{const x=Math.round(s/10)*10,m=Math.floor(x/60),r=x%60;return '약 
 /* ===== STATE ===== */
 const S={types:new Set(['W']),int:'MODERATE',dur:0,wod:null,lastSig:'',lastFmt:'',gen:null,start:null,end:null,ms:0,tpl:1,msg:0};
 try{S.tpl=clamp(+localStorage.getItem('kye3tpl')||1,1,7)}catch(e){}
+/* photo zoom slider: centre (100) = photo fills the card, left = smaller (black around the photo), right = larger */
+const zmPaint=e=>{const p=e.value/200;e.style.setProperty('--a',Math.min(p,.5));e.style.setProperty('--b',Math.max(p,.5));e.style.setProperty('--c',p<.5?'#F06292':'#3B82F6')},zmSet=(q,v)=>{const e=$(q);e.value=v;zmPaint(e)};
+const ZMIN=.3,ZMAX=3,z2v=z=>z<=1?(z-ZMIN)/(1-ZMIN)*100:100+(z-1)/(ZMAX-1)*100,v2z=v=>v<=100?ZMIN+(1-ZMIN)*v/100:1+(ZMAX-1)*(v-100)/100;
 const P={img:null,zoom:1,ox:0,oy:0,poop:false,many:null,flower:null,maple:null};
 const sw={run:false,at:0,acc:0};
 const two=n=>String(n).padStart(2,'0'),fmt=ms=>{const t=Math.floor(ms/1000);return two(Math.floor(t/60))+':'+two(t%60)};
@@ -566,18 +579,18 @@ function drawBG(){const c=$('#bgc'),x=c.getContext('2d');x.fillStyle='#000';x.fi
   x.strokeStyle='rgba(255,255,255,.05)';x.lineWidth=3;for(let i=-1920;i<1080;i+=56){x.beginPath();x.moveTo(i,1920);x.lineTo(i+1920,0);x.stroke()}
   const r=x.createRadialGradient(820,620,0,820,620,700);r.addColorStop(0,'rgba(255,255,255,.12)');r.addColorStop(1,'rgba(255,255,255,0)');x.fillStyle=r;x.fillRect(0,0,1080,1920);return}
  const i=P.img,sc=Math.max(1080/i.width,1920/i.height)*P.zoom,w=i.width*sc,h=i.height*sc;
- P.ox=clamp(P.ox,-(w-1080)/2,(w-1080)/2);P.oy=clamp(P.oy,-(h-1920)/2,(h-1920)/2);x.drawImage(i,540-w/2+P.ox,960-h/2+P.oy,w,h)}
+ {const lx=Math.abs(w-1080)/2,ly=Math.abs(h-1920)/2;P.ox=clamp(P.ox,-lx,lx);P.oy=clamp(P.oy,-ly,ly)}x.drawImage(i,540-w/2+P.ox,960-h/2+P.oy,w,h)}
 function loadPhoto(f){if(!f)return;const u=URL.createObjectURL(f),im=new Image();
- im.onload=()=>{URL.revokeObjectURL(u);const M=2400,k=Math.min(1,M/Math.max(im.width,im.height));if(k<1){const c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);P.img=c}else P.img=im;P.zoom=1;P.ox=P.oy=0;$('#zm').value=1;drawBG()};
+ im.onload=()=>{URL.revokeObjectURL(u);const M=2400,k=Math.min(1,M/Math.max(im.width,im.height));if(k<1){const c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);P.img=c}else P.img=im;P.zoom=1;P.ox=P.oy=0;zmSet('#zm',100);drawBG()};
  im.onerror=()=>{URL.revokeObjectURL(u);toast('이미지 파일을 열 수 없습니다. 다른 사진을 선택해 주세요.')};im.src=u}
-function clearPhoto(){P.img=null;P.zoom=1;P.ox=P.oy=0;$('#zm').value=1;$('#cam').value=$('#upl').value='';if($('#s6').classList.contains('on'))drawBG()}
+function clearPhoto(){P.img=null;P.zoom=1;P.ox=P.oy=0;zmSet('#zm',100);$('#cam').value=$('#upl').value='';if($('#s6').classList.contains('on'))drawBG()}
 $('#cam').onchange=e=>{loadPhoto(e.target.files[0]);e.target.value=''};$('#upl').onchange=e=>{loadPhoto(e.target.files[0]);e.target.value=''};
-$('#zm').oninput=e=>{P.zoom=+e.target.value;drawBG()};$('#rm').onclick=clearPhoto;
+$('#zm').oninput=e=>{zmPaint(e.target);P.zoom=v2z(+e.target.value);drawBG()};$('#rm').onclick=clearPhoto;
 let dg=null,pend=0;const pv=$('#pvw');
 pv.onpointerdown=e=>{e.preventDefault();dg={x:e.clientX,y:e.clientY};pv.setPointerCapture(e.pointerId)};
 pv.onpointermove=e=>{if(!dg||!P.img)return;const k=3/(pv.clientWidth/360);P.ox+=(e.clientX-dg.x)*k;P.oy+=(e.clientY-dg.y)*k;dg={x:e.clientX,y:e.clientY};if(!pend){pend=1;requestAnimationFrame(()=>{pend=0;drawBG()})}};
 pv.onpointerup=pv.onpointercancel=()=>dg=null;
-pv.onwheel=e=>{if(!P.img)return;e.preventDefault();P.zoom=clamp(P.zoom-e.deltaY*.002,1,3);$('#zm').value=P.zoom;drawBG()};
+pv.onwheel=e=>{if(!P.img)return;e.preventDefault();P.zoom=clamp(P.zoom-e.deltaY*.002,ZMIN,ZMAX);zmSet('#zm',Math.round(z2v(P.zoom)));drawBG()};
 /* ===== export: 1080x1920 PNG of the current design only ===== */
 let busy=false;
 async function renderPNG(){await document.fonts.ready;
@@ -720,18 +733,18 @@ function drawBG0(){const c=$('#rbgc'),x=c.getContext('2d');x.fillStyle='#000';x.
   x.strokeStyle='rgba(255,255,255,.05)';x.lineWidth=3;for(let i=-1920;i<1080;i+=56){x.beginPath();x.moveTo(i,1920);x.lineTo(i+1920,0);x.stroke()}
   const r=x.createRadialGradient(820,620,0,820,620,700);r.addColorStop(0,'rgba(255,255,255,.12)');r.addColorStop(1,'rgba(255,255,255,0)');x.fillStyle=r;x.fillRect(0,0,1080,1920);return}
  const i=P.img,k=Math.max(1080/i.width,1920/i.height)*P.zoom,w=i.width*k,h=i.height*k;
- P.ox=clamp(P.ox,-(w-1080)/2,(w-1080)/2);P.oy=clamp(P.oy,-(h-1920)/2,(h-1920)/2);x.drawImage(i,540-w/2+P.ox,960-h/2+P.oy,w,h)}
+ {const lx=Math.abs(w-1080)/2,ly=Math.abs(h-1920)/2;P.ox=clamp(P.ox,-lx,lx);P.oy=clamp(P.oy,-ly,ly)}x.drawImage(i,540-w/2+P.ox,960-h/2+P.oy,w,h)}
 function loadPhoto(f){if(!f)return;const u=URL.createObjectURL(f),im=new Image();
- im.onload=()=>{URL.revokeObjectURL(u);const M=2400,k=Math.min(1,M/Math.max(im.width,im.height));if(k<1){const c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);P.img=c}else P.img=im;P.zoom=1;P.ox=P.oy=0;$('#rzm').value=1;drawBG()};
+ im.onload=()=>{URL.revokeObjectURL(u);const M=2400,k=Math.min(1,M/Math.max(im.width,im.height));if(k<1){const c=document.createElement('canvas');c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext('2d').drawImage(im,0,0,c.width,c.height);P.img=c}else P.img=im;P.zoom=1;P.ox=P.oy=0;zmSet('#rzm',100);drawBG()};
  im.onerror=()=>{URL.revokeObjectURL(u);toast('이미지 파일을 열 수 없습니다. 다른 사진을 선택해 주세요.')};im.src=u}
-function clearPhoto(){P.img=null;P.zoom=1;P.ox=P.oy=0;$('#rzm').value=1;$('#rcam').value=$('#rupl').value='';drawBG()}
+function clearPhoto(){P.img=null;P.zoom=1;P.ox=P.oy=0;zmSet('#rzm',100);$('#rcam').value=$('#rupl').value='';drawBG()}
 $('#rcam').onchange=e=>{loadPhoto(e.target.files[0]);e.target.value=''};$('#rupl').onchange=e=>{loadPhoto(e.target.files[0]);e.target.value=''};
-$('#rzm').oninput=e=>{P.zoom=+e.target.value;drawBG()};$('#rrm').onclick=clearPhoto;
+$('#rzm').oninput=e=>{zmPaint(e.target);P.zoom=v2z(+e.target.value);drawBG()};$('#rrm').onclick=clearPhoto;
 let dg=null,pend=0;const pv=$('#rpvw');
 pv.onpointerdown=e=>{e.preventDefault();dg={x:e.clientX,y:e.clientY};pv.setPointerCapture(e.pointerId)};
 pv.onpointermove=e=>{if(!dg||!P.img)return;const k=3/(pv.clientWidth/360);P.ox+=(e.clientX-dg.x)*k;P.oy+=(e.clientY-dg.y)*k;dg={x:e.clientX,y:e.clientY};if(!pend){pend=1;requestAnimationFrame(()=>{pend=0;drawBG()})}};
 pv.onpointerup=pv.onpointercancel=()=>dg=null;
-pv.onwheel=e=>{if(!P.img)return;e.preventDefault();P.zoom=clamp(P.zoom-e.deltaY*.002,1,3);$('#rzm').value=P.zoom;drawBG()};
+pv.onwheel=e=>{if(!P.img)return;e.preventDefault();P.zoom=clamp(P.zoom-e.deltaY*.002,ZMIN,ZMAX);zmSet('#rzm',Math.round(z2v(P.zoom)));drawBG()};
 
 /* ===== export: 1080x1920 PNG of the current design only ===== */
 let busy=false;
@@ -804,7 +817,7 @@ function rswFinish(){if(rsw.run){rsw.acc+=Date.now()-rsw.at;rsw.run=false}try{rw
 $('#rstop').onclick=()=>modal('운동을 종료할까요?','운동 시간이 기록 카드에 입력돼요.',[['계속 운동하기'],['운동 종료',rswFinish,1]],'','sm rk');
 /* ===== init (runs only while the record view is shown) ===== */
 const shown=()=>$('#s7').classList.contains('on');
-window.resetRecord=()=>{S.tpl=1;F=blank();P.img=null;P.zoom=1;P.ox=P.oy=0;$('#rzm').value=1};
+window.resetRecord=()=>{S.tpl=1;F=blank();P.img=null;P.zoom=1;P.ox=P.oy=0;zmSet('#rzm',100)};
 window.initRecord=()=>{syncForm();drawBG();fitCard();renderCard()};
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>{if(shown()){fitCard();renderCard()}});
 if(document.fonts&&document.fonts.addEventListener)document.fonts.addEventListener('loadingdone',()=>{if(shown())renderCard()});
