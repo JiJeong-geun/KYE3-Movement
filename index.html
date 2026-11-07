@@ -647,10 +647,10 @@ $('#raddn').onclick=()=>{readForm();const left=MAXL-F.lines.length;if(left<=0)re
 (()=>{const box=$('#rlines');let row=null,grab=0,y=0,raf=0,pid=null,hd=null;
  const place=()=>{if(!row)return;row.style.transform='';
   let r=row.getBoundingClientRect(),pv=row.previousElementSibling,nx=row.nextElementSibling;
-  while(pv){const m=pv.getBoundingClientRect();if(y<m.top+m.height/2){box.insertBefore(row,pv);pv=row.previousElementSibling}else break}
+  while(pv){const m=pv.getBoundingClientRect();if(y<m.top+m.height/2){box.insertBefore(pv,row.nextSibling);pv=row.previousElementSibling}else break}
   while(nx){const m=nx.getBoundingClientRect();if(y>m.top+m.height/2){box.insertBefore(nx,row);nx=row.nextElementSibling}else break}
   r=row.getBoundingClientRect();row.style.transform=`translateY(${y-grab-r.top}px)`};
- const loop=()=>{if(!row)return;const h=innerHeight;if(y<70)scrollBy(0,-Math.min(16,(70-y)/4+2));else if(y>h-70)scrollBy(0,Math.min(16,(y-(h-70))/4+2));place();raf=requestAnimationFrame(loop)};
+ const loop=()=>{if(!row)return;const h=innerHeight,m=$('#rmini'),te=(m.classList.contains('on')?m.getBoundingClientRect().bottom:0)+70;if(y<te)scrollBy(0,-Math.min(14,(te-y)/5+2));else if(y>h-70)scrollBy(0,Math.min(16,(y-(h-70))/4+2));place();raf=requestAnimationFrame(loop)};
  const end=()=>{if(!row)return;cancelAnimationFrame(raf);try{hd.releasePointerCapture(pid)}catch(_){}row.style.transform='';row.classList.remove('drag');document.body.classList.remove('dragging');row=null;
   readForm();renderLines();renderCard()};
  box.addEventListener('pointerdown',e=>{const h=e.target.closest('.lh');if(row||!h||(e.button!==undefined&&e.button!==0))return;e.preventDefault();
