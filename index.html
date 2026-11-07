@@ -163,9 +163,9 @@ input[type=date].in{text-align:left;line-height:38px}
 .tm2 .in{text-align:center;font-variant-numeric:tabular-nums;height:42px;min-height:42px;max-height:42px;line-height:normal;box-sizing:border-box}
 .qk{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
 .qk .c{min-height:34px;font-size:11px;font-weight:700;letter-spacing:.02em;padding:2px}
-.lr{display:grid;grid-template-columns:28px 76px 56px 1fr 40px;gap:6px;margin-bottom:6px;position:relative}
+.lr{display:grid;grid-template-columns:20px 76px 56px 1fr 40px;gap:6px;margin-bottom:6px;position:relative}
 .lh{height:42px;border:0;background:none;padding:0;color:#8a8a8a;cursor:grab;touch-action:none;-webkit-user-select:none;user-select:none;display:flex;align-items:center;justify-content:center;border-radius:6px}
-.lh svg{width:18px;height:18px;display:block}.lh:focus-visible{outline:2px solid #000;outline-offset:-2px}
+.lh svg{width:10px;height:18px;display:block}.lh:focus-visible{outline:2px solid #000;outline-offset:-2px}
 .lr.drag{z-index:5;background:#fff;box-shadow:0 6px 18px rgba(0,0,0,.2);border-radius:8px;opacity:.97}.lr.drag .lh{cursor:grabbing;color:#000}
 body.dragging,body.dragging *{cursor:grabbing!important;-webkit-user-select:none;user-select:none}
 .lx{height:42px;border:1px solid #D9D9D9;background:#fff;color:#444;border-radius:8px;font-size:20px;line-height:1;padding:0}
@@ -629,7 +629,7 @@ const SAMPLE_LINES=[['10','Dumbbell Thruster'],['12','Push-Ups'],['15','Air Squa
 function readForm(){F.date=$('#rfd').value;F.min=$('#rfmn').value;F.sec=$('#rfsc').value;F.int=$('#rfin').value;F.head=$('#rfhd').value;F.sub=$('#rfsb').value;
  F.lines=$$('#rlines .lr').map(r=>({r:r.querySelector('.lr-r').value,u:r.querySelector('.lr-u').value,n:r.querySelector('.lr-n').value}))}
 function renderLines(){
- $('#rlines').innerHTML=F.lines.map((l,i)=>`<div class="lr"><button type="button" class="lh" aria-label="${i+1}번째 운동 순서 이동 (누른 채 드래그, 또는 위/아래 방향키)"><svg viewBox="0 0 18 18" fill="currentColor"><circle cx="6.5" cy="4" r="1.6"/><circle cx="11.5" cy="4" r="1.6"/><circle cx="6.5" cy="9" r="1.6"/><circle cx="11.5" cy="9" r="1.6"/><circle cx="6.5" cy="14" r="1.6"/><circle cx="11.5" cy="14" r="1.6"/></svg></button><input class="in lr-r" inputmode="numeric" maxlength="12" placeholder="횟수" value="${esc(l.r)}" autocomplete="off" aria-label="${i+1}번째 운동 횟수"><input class="in lr-u" maxlength="6" placeholder="단위" value="${esc(l.u||'')}" autocomplete="off" autocapitalize="off" aria-label="${i+1}번째 운동 단위(선택)"><input class="in lr-n" maxlength="40" placeholder="운동 이름" value="${esc(l.n)}" autocomplete="off" aria-label="${i+1}번째 운동 이름"><button type="button" class="lx" data-i="${i}" aria-label="${i+1}번째 운동 삭제">×</button></div>`).join('');
+ $('#rlines').innerHTML=F.lines.map((l,i)=>`<div class="lr"><button type="button" class="lh" aria-label="${i+1}번째 운동 순서 이동 (누른 채 드래그, 또는 위/아래 방향키)"><svg viewBox="4.5 0 9 18" fill="currentColor"><circle cx="6.5" cy="4" r="1.6"/><circle cx="11.5" cy="4" r="1.6"/><circle cx="6.5" cy="9" r="1.6"/><circle cx="11.5" cy="9" r="1.6"/><circle cx="6.5" cy="14" r="1.6"/><circle cx="11.5" cy="14" r="1.6"/></svg></button><input class="in lr-r" inputmode="numeric" maxlength="12" placeholder="횟수" value="${esc(l.r)}" autocomplete="off" aria-label="${i+1}번째 운동 횟수"><input class="in lr-u" maxlength="6" placeholder="단위" value="${esc(l.u||'')}" autocomplete="off" autocapitalize="off" aria-label="${i+1}번째 운동 단위(선택)"><input class="in lr-n" maxlength="40" placeholder="운동 이름" value="${esc(l.n)}" autocomplete="off" aria-label="${i+1}번째 운동 이름"><button type="button" class="lx" data-i="${i}" aria-label="${i+1}번째 운동 삭제">×</button></div>`).join('');
  $('#raddl').disabled=$('#raddn').disabled=F.lines.length>=MAXL}
 function syncForm(){$('#rfd').value=F.date;$('#rfmn').value=F.min;$('#rfsc').value=F.sec;$('#rfin').value=F.int;$('#rfhd').value=F.head;$('#rfsb').value=F.sub;renderLines();syncQk()}
 function syncQk(){const v=$('#rfin').value.trim().toUpperCase();$$('#rqk .c').forEach(b=>b.classList.toggle('on',b.dataset.v===v))}
