@@ -751,21 +751,22 @@ const mini=()=>{$('#rmov').innerHTML=$('#rov').innerHTML.replace(/ id="/g,' data
 const syncMini=()=>{const m=$('#rmini');if(m&&m.classList.contains('on'))mini()};
 /* mini-card size follows the viewport only on real changes (rotation, window resize, keyboard): mobile address-bar show/hide fires small resize events while scrolling and made it jitter */
 let vh0=0,vw0=0;
-function fitMini(){$('#rmind').textContent=two(S.tpl)+' / 07';if(!vh0||innerWidth!==vw0||Math.abs(innerHeight-vh0)>200){vh0=innerHeight;vw0=innerWidth}const mh=Math.min(vh0*.4,400),k=mh/640,bx=$('#rmbox');bx.style.width=360*k+'px';bx.style.height=mh+'px';$('#rmcw').style.transform=`scale(${k})`;document.documentElement.style.setProperty('--stk',$('#rmini').offsetHeight+'px')}
+function fitMini(){$('#rmind').textContent=two(S.tpl)+' / 07';if(!vh0||(!(document.activeElement&&document.activeElement.matches&&document.activeElement.matches('#s7 input'))&&(innerWidth!==vw0||Math.abs(innerHeight-vh0)>200))){vh0=innerHeight;vw0=innerWidth}const mh=Math.min(vh0*.4,400),k=mh/640,bx=$('#rmbox');bx.style.width=360*k+'px';bx.style.height=mh+'px';$('#rmcw').style.transform=`scale(${k})`;document.documentElement.style.setProperty('--stk',$('#rmini').offsetHeight+'px')}
 let mt=0;function onScroll(){if(mt)return;mt=requestAnimationFrame(()=>{mt=0;const m=$('#rmini');if(!shown()){m.classList.remove('on');return}
- const o=$('#rstk').getBoundingClientRect().bottom<40;if(o!==m.classList.contains('on')){m.classList.toggle('on',o);if(o){fitMini();mini()}}})}
+ const ed=document.activeElement&&document.activeElement.matches&&document.activeElement.matches('#s7 input'),o=(ed&&m.classList.contains('on'))||$('#rstk').getBoundingClientRect().bottom<40;if(o!==m.classList.contains('on')){m.classList.toggle('on',o);if(o){fitMini();mini()}}})}
 addEventListener('scroll',onScroll,{passive:true});
 /* iOS: after the keyboard closes the field that was being edited can sit behind the fixed mini card; bring it back into the free area below the card so the typed value stays visible */
 {const vp=window.visualViewport,vhNow=()=>vp?vp.height:innerHeight,isIn=e=>e&&e.matches&&e.matches('#s7 input');let last=null,vh=vhNow(),tm=[];
- document.addEventListener('focusin',e=>{if(isIn(e.target))last=e.target});
+ document.addEventListener('focusin',e=>{if(isIn(e.target)){last=e.target;tm.forEach(clearTimeout);tm=[setTimeout(()=>show(true),450)]}});
+ document.addEventListener('focusout',e=>{if(isIn(e.target))setTimeout(onScroll,450)});
  let ga=0;const stopGlide=()=>{cancelAnimationFrame(ga);ga=0};
  const glide=dy=>{stopGlide();const y0=scrollY,t0=performance.now(),D=Math.min(450,260+Math.abs(dy)*.25),ease=t=>1-Math.pow(1-t,3);
   const step=now=>{const t=Math.min(1,(now-t0)/D);scrollTo(0,y0+dy*ease(t));ga=t<1?requestAnimationFrame(step):0};ga=requestAnimationFrame(step)};
  ['touchstart','wheel','keydown','pointerdown'].forEach(n=>addEventListener(n,()=>{if(ga)stopGlide()},{passive:true}));
- const show=()=>{if(ga||!last||!last.isConnected||!shown()||isIn(document.activeElement))return;
-  const m=$('#rmini'),top=(m.classList.contains('on')?m.offsetHeight:0)+12,H=vhNow(),r=last.getBoundingClientRect();
+ const show=typing=>{const el=typing===true?document.activeElement:last;if(ga||!el||!isIn(el)||!el.isConnected||!shown()||(typing!==true&&isIn(document.activeElement)))return;
+  const m=$('#rmini'),top=(m.classList.contains('on')?m.offsetHeight:0)+12,H=vhNow(),r=el.getBoundingClientRect();if(typing===true&&H-top<r.height+12)return;
   if(r.top<top||r.bottom>H-12)glide(r.top-top-Math.max(0,H-top-r.height)/2)};
- const grew=()=>{const h=vhNow(),g=h-vh>100;vh=h;if(g){tm.forEach(clearTimeout);tm=[setTimeout(show,300)]}};
+ const grew=()=>{const h=vhNow(),g=h-vh>100,d=vh;vh=h;if(g){tm.forEach(clearTimeout);tm=[setTimeout(show,300)]}else if(d-h>100){tm.forEach(clearTimeout);tm=[setTimeout(()=>show(true),350)]}};
  (vp||window).addEventListener('resize',grew);window.__kbShow=show}
 $('#rmprev').onclick=()=>setTpl(S.tpl-1);$('#rmnext').onclick=()=>setTpl(S.tpl+1);
 $$('#bgsw .bgc-btn,#bgsw2 .bgc-btn').forEach(b=>b.onclick=()=>{const k=b.dataset.k;if(k==='one')P.poop=!P.poop;else if(k==='many')P.many=P.many?null:genPoops();else P.flower=P.flower?null:genPoops(15,27,27);$$('#bgsw .bgc-btn,#bgsw2 .bgc-btn').forEach(x=>x.setAttribute('aria-pressed',x.dataset.k==='one'?P.poop:x.dataset.k==='many'?!!P.many:!!P.flower));renderCard()});
