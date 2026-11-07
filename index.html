@@ -534,7 +534,7 @@ const rtFs=n=>n<=3?14.5:n<=4?14:n<=5?13:n<=6?12:11;
 const kv=(k,v)=>`<div class="kv"><span>${k}</span><b>${esc(v)}</b></div>`;
 const data=()=>({t:fmt(S.ms),dt:cdate(S.start),int:S.int,ty:tyStr(),head:S.wod.head,sub:S.wod.sub,lines:S.wod.lines.map(L),msg:MSG[S.msg]});
 const rtH=(d,x=1,al='')=>`<div class="rt" style="font-size:${rtFs(d.lines.length)*x}px;${al}"><b>${esc(d.head)}</b>${d.sub?`<i>${esc(d.sub)}</i>`:''}${d.lines.map(l=>`<div>${esc(l)}</div>`).join('')}</div>`;
-const rtI=(d,fs=12)=>`<div class="rt" style="font-size:${fs}px;text-align:center"><b style="display:block">${esc(d.head)}</b>${d.sub?esc(d.sub)+': ':''}${d.lines.map(esc).join(' / ')}</div>`;
+const rtI=(d,fs=12)=>`<div class="rt" style="font-size:${fs}px;text-align:center"><b style="display:block">${esc(d.head)}</b>${d.sub?`<i>${esc(d.sub)}</i>`:''}${d.lines.map(esc).join(' / ')}</div>`;
 const sc=(t,h)=>`<div class="sc" style="${t?'top:0':'bottom:0'};height:${h}px;background:linear-gradient(${t?'180deg':'0deg'},rgba(0,0,0,.72),rgba(0,0,0,0))"></div>`;
 const TPL=[
  d=>sc(1,190)+sc(0,330)+`<div class="a" style="top:58px;left:0;right:0;text-align:center"><div class="lg">K<span class="ky">Y</span>E3</div></div><div class="a" style="top:196px;left:0;right:0;text-align:center"><div class="lb" style="visibility:hidden">&nbsp;</div><div class="tm" style="font-size:${d.t.length>5?72:96}px;margin-top:6px">${d.t}</div></div><div class="a" style="left:28px;right:28px;bottom:66px"><div class="row3">${kv('DATE',d.dt)}${kv('INTENSITY',d.int)}</div>${rtH(d)}</div>`,
@@ -663,7 +663,7 @@ const rtFs=n=>n<=3?14.5:n<=4?14:n<=5?13:n<=6?12:11;
 const kv=(k,v)=>`<div class="kv"><span>${k}</span><b>${esc(v)}</b></div>`;
 const rgH=ls=>{const g=a=>`<div class="rg">${a.map(l=>`<span>${esc(l.a)}</span><span>${esc(l.b)}</span>`).join('')}</div>`;if(ls.length<=10)return g(ls);const h=Math.ceil(ls.length/2);return `<div class="rg2">${g(ls.slice(0,h))}${g(ls.slice(h))}</div>`};
 const rtH=(d,x=1,al='')=>`<div class="rt" style="font-size:${rtFs(d.lines.length)*x}px;${al}">${d.head?`<b>${esc(d.head)}</b>`:''}${d.sub?`<i>${esc(d.sub)}</i>`:''}${rgH(d.lines)}</div>`;
-const rtI=(d,fs=12)=>`<div class="rt" style="font-size:${fs}px;text-align:center">${d.head?`<b style="display:block">${esc(d.head)}</b>`:''}${d.sub?esc(d.sub)+(d.lines.length?': ':''):''}${d.lines.map(l=>esc([l.a,l.b].filter(Boolean).join(' '))).join(' / ')}</div>`;
+const rtI=(d,fs=12)=>`<div class="rt" style="font-size:${fs}px;text-align:center">${d.head?`<b style="display:block">${esc(d.head)}</b>`:''}${d.sub?`<i>${esc(d.sub)}</i>`:''}${d.lines.map(l=>esc([l.a,l.b].filter(Boolean).join(' '))).join(' / ')}</div>`;
 const sc=(t,h)=>`<div class="sc" style="${t?'top:0':'bottom:0'};height:${h}px;background:linear-gradient(${t?'180deg':'0deg'},rgba(0,0,0,.72),rgba(0,0,0,0))"></div>`;
 const TPL=[
  d=>sc(1,190)+sc(0,330)+`<div class="a" style="top:58px;left:0;right:0;text-align:center"><div class="lg">K<span class="ky">Y</span>E3</div></div><div class="a" style="top:196px;left:0;right:0;text-align:center"><div class="lb" style="visibility:hidden">&nbsp;</div><div class="tm" style="font-size:${d.t.length>5?72:96}px;margin-top:6px">${d.t}</div></div><div class="a" style="left:28px;right:28px;bottom:66px"><div class="row3">${kv('DATE',d.dt)}${kv('INTENSITY',d.int)}</div>${rtH(d)}</div>`,
