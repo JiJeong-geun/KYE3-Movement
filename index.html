@@ -758,10 +758,14 @@ addEventListener('scroll',onScroll,{passive:true});
 /* iOS: after the keyboard closes the field that was being edited can sit behind the fixed mini card; bring it back into the free area below the card so the typed value stays visible */
 {const vp=window.visualViewport,vhNow=()=>vp?vp.height:innerHeight,isIn=e=>e&&e.matches&&e.matches('#s7 input');let last=null,vh=vhNow(),tm=[];
  document.addEventListener('focusin',e=>{if(isIn(e.target))last=e.target});
- const show=()=>{if(!last||!last.isConnected||!shown()||isIn(document.activeElement))return;
+ let ga=0;const stopGlide=()=>{cancelAnimationFrame(ga);ga=0};
+ const glide=dy=>{stopGlide();const y0=scrollY,t0=performance.now(),D=Math.min(450,260+Math.abs(dy)*.25),ease=t=>1-Math.pow(1-t,3);
+  const step=now=>{const t=Math.min(1,(now-t0)/D);scrollTo(0,y0+dy*ease(t));ga=t<1?requestAnimationFrame(step):0};ga=requestAnimationFrame(step)};
+ ['touchstart','wheel','keydown','pointerdown'].forEach(n=>addEventListener(n,()=>{if(ga)stopGlide()},{passive:true}));
+ const show=()=>{if(ga||!last||!last.isConnected||!shown()||isIn(document.activeElement))return;
   const m=$('#rmini'),top=(m.classList.contains('on')?m.offsetHeight:0)+12,H=vhNow(),r=last.getBoundingClientRect();
-  if(r.top<top||r.bottom>H-12)scrollBy(0,r.top-top-Math.max(0,H-top-r.height)/2)};
- const grew=()=>{const h=vhNow(),g=h-vh>100;vh=h;if(g){tm.forEach(clearTimeout);tm=[150,500].map(d=>setTimeout(show,d))}};
+  if(r.top<top||r.bottom>H-12)glide(r.top-top-Math.max(0,H-top-r.height)/2)};
+ const grew=()=>{const h=vhNow(),g=h-vh>100;vh=h;if(g){tm.forEach(clearTimeout);tm=[setTimeout(show,300)]}};
  (vp||window).addEventListener('resize',grew);window.__kbShow=show}
 $('#rmprev').onclick=()=>setTpl(S.tpl-1);$('#rmnext').onclick=()=>setTpl(S.tpl+1);
 $$('#bgsw .bgc-btn,#bgsw2 .bgc-btn').forEach(b=>b.onclick=()=>{const k=b.dataset.k;if(k==='one')P.poop=!P.poop;else if(k==='many')P.many=P.many?null:genPoops();else P.flower=P.flower?null:genPoops(15,27,27);$$('#bgsw .bgc-btn,#bgsw2 .bgc-btn').forEach(x=>x.setAttribute('aria-pressed',x.dataset.k==='one'?P.poop:x.dataset.k==='many'?!!P.many:!!P.flower));renderCard()});
