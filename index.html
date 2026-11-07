@@ -653,11 +653,11 @@ $('#raddn').onclick=()=>{readForm();const left=MAXL-F.lines.length;if(left<=0)re
  const loop=()=>{if(!row)return;const h=innerHeight;if(y<70)scrollBy(0,-Math.min(16,(70-y)/4+2));else if(y>h-70)scrollBy(0,Math.min(16,(y-(h-70))/4+2));place();raf=requestAnimationFrame(loop)};
  const end=()=>{if(!row)return;cancelAnimationFrame(raf);try{hd.releasePointerCapture(pid)}catch(_){}row.style.transform='';row.classList.remove('drag');document.body.classList.remove('dragging');row=null;
   readForm();renderLines();renderCard()};
- box.addEventListener('pointerdown',e=>{const h=e.target.closest('.lh');if(!h||(e.button!==undefined&&e.button!==0))return;e.preventDefault();
+ box.addEventListener('pointerdown',e=>{const h=e.target.closest('.lh');if(row||!h||(e.button!==undefined&&e.button!==0))return;e.preventDefault();
   row=h.closest('.lr');hd=h;pid=e.pointerId;y=e.clientY;grab=y-row.getBoundingClientRect().top;row.classList.add('drag');document.body.classList.add('dragging');try{h.setPointerCapture(pid)}catch(_){}
   cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)});
  box.addEventListener('pointermove',e=>{if(row&&e.pointerId===pid){y=e.clientY;place()}});
- box.addEventListener('pointerup',e=>{if(e.pointerId===pid)end()});box.addEventListener('pointercancel',e=>{if(e.pointerId===pid)end()});
+ box.addEventListener('pointerup',e=>{if(e.pointerId===pid)end()});box.addEventListener('pointercancel',e=>{if(e.pointerId===pid)end()});box.addEventListener('lostpointercapture',e=>{if(e.pointerId===pid)end()});
  box.addEventListener('keydown',e=>{const h=e.target.closest('.lh');if(!h||(e.key!=='ArrowUp'&&e.key!=='ArrowDown'))return;e.preventDefault();
   const rows=$$('#rlines .lr'),i=rows.indexOf(h.closest('.lr')),j=i+(e.key==='ArrowUp'?-1:1);if(j<0||j>=rows.length)return;
   readForm();[F.lines[i],F.lines[j]]=[F.lines[j],F.lines[i]];renderLines();renderCard();$$('#rlines .lh')[j].focus()});
@@ -749,10 +749,20 @@ $('#rnw').onclick=()=>modal('입력을 초기화할까요?','입력한 내용과
 /* ===== compact preview: appears at the top once the full card has scrolled out of view ===== */
 const mini=()=>{$('#rmov').innerHTML=$('#rov').innerHTML.replace(/ id="/g,' data-i="');const x=$('#rmbg').getContext('2d');x.imageSmoothingQuality='high';x.drawImage($('#rbgc'),0,0,360,640);$('#rmind').textContent=two(S.tpl)+' / 07'};
 const syncMini=()=>{const m=$('#rmini');if(m&&m.classList.contains('on'))mini()};
-function fitMini(){$('#rmind').textContent=two(S.tpl)+' / 07';const mh=Math.min(innerHeight*.4,400),k=mh/640,bx=$('#rmbox');bx.style.width=360*k+'px';bx.style.height=mh+'px';$('#rmcw').style.transform=`scale(${k})`;document.documentElement.style.setProperty('--stk',$('#rmini').offsetHeight+'px')}
+/* mini-card size follows the viewport only on real changes (rotation, window resize, keyboard): mobile address-bar show/hide fires small resize events while scrolling and made it jitter */
+let vh0=0,vw0=0;
+function fitMini(){$('#rmind').textContent=two(S.tpl)+' / 07';if(!vh0||innerWidth!==vw0||Math.abs(innerHeight-vh0)>200){vh0=innerHeight;vw0=innerWidth}const mh=Math.min(vh0*.4,400),k=mh/640,bx=$('#rmbox');bx.style.width=360*k+'px';bx.style.height=mh+'px';$('#rmcw').style.transform=`scale(${k})`;document.documentElement.style.setProperty('--stk',$('#rmini').offsetHeight+'px')}
 let mt=0;function onScroll(){if(mt)return;mt=requestAnimationFrame(()=>{mt=0;const m=$('#rmini');if(!shown()){m.classList.remove('on');return}
  const o=$('#rstk').getBoundingClientRect().bottom<40;if(o!==m.classList.contains('on')){m.classList.toggle('on',o);if(o){fitMini();mini()}}})}
 addEventListener('scroll',onScroll,{passive:true});
+/* iOS: after the keyboard closes the field that was being edited can sit behind the fixed mini card; bring it back into the free area below the card so the typed value stays visible */
+{const vp=window.visualViewport,vhNow=()=>vp?vp.height:innerHeight,isIn=e=>e&&e.matches&&e.matches('#s7 input');let last=null,vh=vhNow(),tm=[];
+ document.addEventListener('focusin',e=>{if(isIn(e.target))last=e.target});
+ const show=()=>{if(!last||!last.isConnected||!shown()||isIn(document.activeElement))return;
+  const m=$('#rmini'),top=(m.classList.contains('on')?m.offsetHeight:0)+12,H=vhNow(),r=last.getBoundingClientRect();
+  if(r.top<top||r.bottom>H-12)scrollBy(0,r.top-top-Math.max(0,H-top-r.height)/2)};
+ const grew=()=>{const h=vhNow(),g=h-vh>100;vh=h;if(g){tm.forEach(clearTimeout);tm=[150,500].map(d=>setTimeout(show,d))}};
+ (vp||window).addEventListener('resize',grew);window.__kbShow=show}
 $('#rmprev').onclick=()=>setTpl(S.tpl-1);$('#rmnext').onclick=()=>setTpl(S.tpl+1);
 $$('#bgsw .bgc-btn,#bgsw2 .bgc-btn').forEach(b=>b.onclick=()=>{const k=b.dataset.k;if(k==='one')P.poop=!P.poop;else if(k==='many')P.many=P.many?null:genPoops();else P.flower=P.flower?null:genPoops(15,27,27);$$('#bgsw .bgc-btn,#bgsw2 .bgc-btn').forEach(x=>x.setAttribute('aria-pressed',x.dataset.k==='one'?P.poop:x.dataset.k==='many'?!!P.many:!!P.flower));renderCard()});
 /* ===== speech bubble (record header) ===== */
