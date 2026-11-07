@@ -68,7 +68,7 @@ h2{font-size:15px;margin:28px 0 12px;font-weight:800}
 .sp{flex:1;min-height:20px}
 .b{min-height:40.6px;width:100%;border:1px solid #000;background:#fff;color:#000;font-weight:800;letter-spacing:.02em;font-size:12px;line-height:1.2;padding:0 8px;border-radius:4px}
 .b.p{background:#000;color:#fff}.b:disabled{opacity:.4}.b:active{transform:scale(.99)}
-#s7 .ctl label.b,#raddl,#rdl,#rnw,#rqk .c,#s7 .zm span{font-weight:500}#s7 h2{font-weight:700}#s1 h2{font-weight:700}#gen,#start,#home,#again,#snd,#pp,#stop,#rpp,#rstop,#rccx,#ccx,#share{font-weight:500}#s6 .ctl label.b,#dl,#pg6,#nw,#s6 .zm span{font-weight:500}#s6 h2{font-weight:700}#s1 .wpu{font-weight:700}
+#s7 .ctl label.b,#raddl,#raddn,#rdl,#rnw,#rqk .c,#s7 .zm span{font-weight:500}#s7 h2{font-weight:700}#s1 h2{font-weight:700}#gen,#start,#home,#again,#snd,#pp,#stop,#rpp,#rstop,#rccx,#ccx,#share{font-weight:500}#s6 .ctl label.b,#dl,#pg6,#nw,#s6 .zm span{font-weight:500}#s6 h2{font-weight:700}#s1 .wpu{font-weight:700}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
 .ft{text-align:left;font-size:15px;color:#111;margin-top:32px;line-height:1.6;font-weight:400}.ft a{color:#111;text-decoration:none}
 .info>div{margin-bottom:14px}.info>div>span,.k{display:block;font-size:13px;letter-spacing:.02em;color:#6b6b6b;font-weight:700;margin-bottom:4px}.info>div>b{display:block;font-size:16px;font-weight:400}#s2i>div>span,#s5 .rc>.info>div>span{color:#000}
@@ -115,7 +115,7 @@ h2{font-size:15px;margin:28px 0 12px;font-weight:800}
 .ind b{font-weight:900}
 .ind{text-align:center;font-weight:400;letter-spacing:.04em;margin:12px 0 2px;font-size:15px}
 .cn.go{font-size:min(26vw,120px)}
-#done{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);background:#000;color:#fff;padding:22px 26px;font-size:15px;font-weight:400;line-height:1.4;border-radius:4px;display:none;z-index:70;max-width:86vw;width:max-content;word-break:keep-all;text-align:center}#done.on{display:block}
+#done{white-space:pre-line;position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);background:#000;color:#fff;padding:22px 26px;font-size:15px;font-weight:400;line-height:1.4;border-radius:4px;display:none;z-index:70;max-width:86vw;width:max-content;word-break:keep-all;text-align:center}#done.on{display:block}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
 .mn{position:relative;display:flex;align-items:center}
 .mt{display:flex;align-items:center;justify-content:center;width:32px;height:32px;margin:0 0 0 -6px;padding:0;border:0;background:none;-webkit-tap-highlight-color:transparent}
@@ -145,7 +145,8 @@ h2{font-size:15px;margin:28px 0 12px;font-weight:800}
 #rov .tm{font-weight:900;font-variant-numeric:tabular-nums;line-height:1;letter-spacing:-.02em}
 #rov .kv span{display:block;font-size:8.5px;letter-spacing:.16em;font-weight:800;margin-bottom:2px}#rov .kv b{font-size:12px;font-weight:800;overflow-wrap:anywhere}
 #rov .row3{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
-#rov .rg{display:grid;grid-template-columns:max-content minmax(0,1fr);white-space:pre-wrap}#rov .rg span:nth-child(odd){text-align:right}#rov .rg span:nth-child(odd):not(:empty){padding-right:.3em}#rov .rt{font-weight:400;line-height:1.45;overflow-wrap:anywhere}#rov .rt b{display:block;font-weight:900;letter-spacing:.04em;margin-bottom:2px}#rov .rt i{display:block;font-style:normal;margin-bottom:3px}
+#rov .rg2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:12px;align-items:start}
+#rov .rg{display:grid;grid-template-columns:max-content minmax(0,1fr);white-space:pre-wrap}#rov .rg span:nth-child(odd){text-align:right}#rov .rg span:nth-child(odd):not(:empty){padding-right:.3em}#rov .rt{font-weight:400;line-height:1.45;overflow-wrap:anywhere}#rov .rt b{display:block;font-size:1.12em;font-weight:900;letter-spacing:.04em;margin-bottom:3px}#rov .rt i{display:block;font-style:normal;margin-bottom:3px}
 #rov .bt{border-top:1px solid rgba(255,255,255,.7);padding-top:10px}
 .ctl{display:grid;grid-template-columns:1fr 1fr auto;align-items:center;gap:8px;margin-top:14px}.ctl .b{white-space:nowrap;letter-spacing:0;padding:0 4px}.ctl #rrm{width:auto;min-width:52px;padding:0 10px;border-color:#A0A0A0;font-weight:400}.ctl label.b{display:flex;align-items:center;justify-content:center;cursor:pointer}
 .zm{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:13px;font-weight:800;letter-spacing:.04em}.zm input{flex:1;accent-color:#000}#s7 h2+.ctl{margin-top:0}#s7 .zm{margin-top:26px}.zm span{white-space:nowrap;flex:none}.zm input{min-width:0}
@@ -165,7 +166,7 @@ input[type=date].in{text-align:left;line-height:38px}
 .lr{display:grid;grid-template-columns:76px 56px 1fr 40px;gap:6px;margin-bottom:6px}
 .lx{height:42px;border:1px solid #D9D9D9;background:#fff;color:#444;border-radius:8px;font-size:20px;line-height:1;padding:0}
 .lx:active{transform:scale(.97)}
-#raddl{margin-top:2px}
+#raddl{margin-top:2px}.arow{display:grid;grid-template-columns:1fr 1fr;gap:8px}.arow .b{margin-top:2px;white-space:nowrap;letter-spacing:0;padding:0 6px}#mb .in.cn{text-align:center;margin:14px 0 4px}
 .cap{font-size:12px;color:#6b6b6b;margin-top:6px}.k+.cap{margin:0 0 10px}
 .hint{font-size:13px;color:#6b6b6b;text-align:center;margin:2px 0 0;min-height:19px}
 .fm+h2{margin-top:32px}
@@ -179,7 +180,8 @@ input[type=date].in{text-align:left;line-height:38px}
 #rmov .tm{font-weight:900;font-variant-numeric:tabular-nums;line-height:1;letter-spacing:-.02em}
 #rmov .kv span{display:block;font-size:8.5px;letter-spacing:.16em;font-weight:800;margin-bottom:2px}#rmov .kv b{font-size:12px;font-weight:800;overflow-wrap:anywhere}
 #rmov .row3{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
-#rmov .rg{display:grid;grid-template-columns:max-content minmax(0,1fr);white-space:pre-wrap}#rmov .rg span:nth-child(odd){text-align:right}#rmov .rg span:nth-child(odd):not(:empty){padding-right:.3em}#rmov .rt{font-weight:400;line-height:1.45;overflow-wrap:anywhere}#rmov .rt b{display:block;font-weight:900;letter-spacing:.04em;margin-bottom:2px}#rmov .rt i{display:block;font-style:normal;margin-bottom:3px}
+#rmov .rg2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:12px;align-items:start}
+#rmov .rg{display:grid;grid-template-columns:max-content minmax(0,1fr);white-space:pre-wrap}#rmov .rg span:nth-child(odd){text-align:right}#rmov .rg span:nth-child(odd):not(:empty){padding-right:.3em}#rmov .rt{font-weight:400;line-height:1.45;overflow-wrap:anywhere}#rmov .rt b{display:block;font-size:1.12em;font-weight:900;letter-spacing:.04em;margin-bottom:3px}#rmov .rt i{display:block;font-style:normal;margin-bottom:3px}
 #rmov .bt{border-top:1px solid rgba(255,255,255,.7);padding-top:10px}
 #rmov{user-select:none;-webkit-user-select:none}
 #rmini{position:fixed;top:env(safe-area-inset-top,0px);left:50%;width:min(100%,430px);padding:8px 20px;background:#fff;z-index:15;box-shadow:0 8px 8px -8px rgba(0,0,0,.14);transform:translate(-50%,-110%);opacity:0;visibility:hidden;pointer-events:none;transition:transform .2s ease,opacity .2s ease,visibility 0s .2s}
@@ -263,7 +265,7 @@ input[type=date].in{text-align:left;line-height:38px}
 <div class="dv6" role="separator"></div>
 <h2 style="margin:22px 0 10px">배경 바꾸기</h2>
 <div class="ctl"><label class="b bl">직접 사진 촬영<input type="file" accept="image/*" capture="environment" id="cam" hidden></label><label class="b bl">사진첩에서 선택<input type="file" accept="image/*" id="upl" hidden></label><button class="b bl" id="rm">삭제</button></div>
-<div class="note"><div class="bl"><span>·</span><span>@kye3_official 계정을 태그하면 저희도 함께 공유해드려요.</span></div><div class="bl"><span>·</span><span>사진은 내 기기에만 저장됩니다.</span></div></div>
+<div class="note"><div class="bl"><span>·</span><span>@kye3_official 계정을 태그하면 저희도 함께 공유해드려요.</span></div></div>
 <div class="zm"><span>사진 확대</span><input type="range" id="zm" min="1" max="3" step=".01" value="1" aria-label="사진 확대"></div>
 <div class="sp"></div>
 <button class="b p bl" id="dl" style="margin-top:14px">이미지 저장</button>
@@ -291,11 +293,11 @@ input[type=date].in{text-align:left;line-height:38px}
   <div class="qk" id="rqk"><button type="button" class="c" data-v="LOW">LOW</button><button type="button" class="c" data-v="MODERATE">MODERATE</button><button type="button" class="c" data-v="HIGH">HIGH</button><button type="button" class="c" data-v="EXTREME">EXTREME</button></div></div>
  <div class="fd"><label for="rfhd">운동 유형</label><input class="in" id="rfhd" maxlength="30" placeholder="HYROX, Weight, AMRAP, Interval 등" autocomplete="off"></div>
  <div class="fd"><label for="rfsb">세부 방식<span class="opt">(선택)</span></label><input class="in" id="rfsb" maxlength="40" placeholder="매번 20초 휴식, 5-10-15-20 등" autocomplete="off"></div>
- <div class="fd"><span class="k">운동 종목</span><div class="cap">횟수와 단위는 비워도 돼요 · 최대 10개까지 추가할 수 있어요.</div><div id="rlines"></div>
-  <button type="button" class="b bl" id="raddl">+ 종목 추가</button></div>
+ <div class="fd"><span class="k">운동 종목</span><div class="cap">횟수와 단위는 비워도 돼요 · 최대 20개까지 추가할 수 있어요.</div><div id="rlines"></div>
+  <div class="arow"><button type="button" class="b bl" id="raddl">+ 종목 추가</button><button type="button" class="b bl" id="raddn">+ 여러 개 추가</button></div></div>
 </div>
 
-<div class="note"><div class="bl"><span>·</span><span>@kye3_official 계정을 태그하면 저희도 함께 공유해드려요.</span></div><div class="bl"><span>·</span><span>사진은 내 기기에만 저장됩니다.</span></div></div>
+<div class="note"><div class="bl"><span>·</span><span>@kye3_official 계정을 태그하면 저희도 함께 공유해드려요.</span></div></div>
 <div class="sp"></div>
 <button class="b p bl" id="rdl" style="margin-top:20px">이미지 저장</button>
 <button class="b bl" id="rnw" style="margin-top:8px">입력 초기화</button>
@@ -466,7 +468,7 @@ function go(n){clearTimeout(S.auto);$$('.fi').forEach(e=>e.classList.remove('fi'
 function modal(t,p,btns,extra='',cls=''){if(t==='이미지 저장')window.track?.('image_save_manual',{save_page:$('#s6.on')?'random':'record',card_bg:bgOf(),card_design:designOf()});$('#mb').className='mb '+cls;$('#mb').innerHTML=`<h3>${t}</h3>${p?`<p>${p}</p>`:''}${extra}`;btns.forEach(([l,fn,pr])=>{const b=document.createElement('button');b.className='b'+(pr?' p':'');b.textContent=l;b.onclick=()=>{$('#modal').classList.remove('on');fn&&fn()};$('#mb').appendChild(b)});$('#modal').classList.add('on')}
 const designOf=()=>{const b=$($('#s6.on')?'#ind b':'#rind b');return b?b.textContent.trim():''};
 const bgOf=()=>{const c=$($('#s6.on')?'#ov':'#rov');if(!c)return'default';const a=[...c.querySelectorAll('.poop')],m=a.some(i=>i.getAttribute('src')===POOPS_SRC),o=a.some(i=>i.getAttribute('src')!==POOPS_SRC);const p=m&&o?'poop_both':m?'poop_15':o?'poop_1':'',f=c.querySelector('.flower')?'flower_15':'';return [p,f].filter(Boolean).join('+')||'default'};
-let dt;function done(m){if(m==='이미지가 다운로드 되었습니다')window.track?.('image_save_success',{save_page:$('#s6.on')?'random':'record',card_bg:bgOf(),card_design:designOf()});else if(m==='운동 유형이나 운동 종목을 입력해 주세요.')window.track?.('image_save_fail',{fail_reason:'blocked_empty',save_page:'record'});const t=$('#done');t.textContent=m;t.classList.add('on');clearTimeout(dt);dt=setTimeout(()=>t.classList.remove('on'),3000)}
+let dt;function done(m,ms=3000){if(m==='이미지가 다운로드 되었습니다')window.track?.('image_save_success',{save_page:$('#s6.on')?'random':'record',card_bg:bgOf(),card_design:designOf()});else if(m==='운동 유형이나 운동 종목을 입력해 주세요.')window.track?.('image_save_fail',{fail_reason:'blocked_empty',save_page:'record'});const t=$('#done');t.textContent=m;t.classList.add('on');clearTimeout(dt);dt=setTimeout(()=>t.classList.remove('on'),ms)}
 let tt;function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(tt);tt=setTimeout(()=>t.style.display='none',3200)}
 /* ===== STEP 1 ===== */
 function syncChips(){$$('#types .c').forEach(b=>b.classList.toggle('on',S.types.has(b.dataset.v)));$$('#ints .c').forEach(b=>b.classList.toggle('on',b.dataset.v===S.int))}
@@ -611,7 +613,7 @@ const two=n=>String(n).padStart(2,'0');
 const MON=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
 const todayStr=()=>{const d=new Date();return `${d.getFullYear()}-${two(d.getMonth()+1)}-${two(d.getDate())}`};
 const cdate=s=>{const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(s)||/^(\d{4})-(\d{2})-(\d{2})$/.exec(todayStr());return `${MON[+m[2]-1]} ${m[3]}, ${m[1]}`};
-const MAXL=10;
+const MAXL=20;
 const blank=()=>({date:todayStr(),min:'',sec:'',int:'',head:'',sub:'',lines:[{r:'',u:'',n:''},{r:'',u:'',n:''},{r:'',u:'',n:''}]});
 let F=blank();
 const S={tpl:1};
@@ -624,11 +626,19 @@ function readForm(){F.date=$('#rfd').value;F.min=$('#rfmn').value;F.sec=$('#rfsc
  F.lines=$$('#rlines .lr').map(r=>({r:r.querySelector('.lr-r').value,u:r.querySelector('.lr-u').value,n:r.querySelector('.lr-n').value}))}
 function renderLines(){
  $('#rlines').innerHTML=F.lines.map((l,i)=>`<div class="lr"><input class="in lr-r" inputmode="numeric" maxlength="12" placeholder="횟수" value="${esc(l.r)}" autocomplete="off" aria-label="${i+1}번째 운동 횟수"><input class="in lr-u" maxlength="6" placeholder="단위" value="${esc(l.u||'')}" autocomplete="off" autocapitalize="off" aria-label="${i+1}번째 운동 단위(선택)"><input class="in lr-n" maxlength="40" placeholder="운동 이름" value="${esc(l.n)}" autocomplete="off" aria-label="${i+1}번째 운동 이름"><button type="button" class="lx" data-i="${i}" aria-label="${i+1}번째 운동 삭제">×</button></div>`).join('');
- $('#raddl').disabled=F.lines.length>=MAXL}
+ $('#raddl').disabled=$('#raddn').disabled=F.lines.length>=MAXL}
 function syncForm(){$('#rfd').value=F.date;$('#rfmn').value=F.min;$('#rfsc').value=F.sec;$('#rfin').value=F.int;$('#rfhd').value=F.head;$('#rfsb').value=F.sub;renderLines();syncQk()}
 function syncQk(){const v=$('#rfin').value.trim().toUpperCase();$$('#rqk .c').forEach(b=>b.classList.toggle('on',b.dataset.v===v))}
 function addLine(){readForm();if(F.lines.length>=MAXL)return;F.lines.push({r:'',u:'',n:''});renderLines();const r=$$('#rlines .lr-r');r[r.length-1].focus()}
 $('#raddl').onclick=addLine;
+$('#raddn').onclick=()=>{readForm();const left=MAXL-F.lines.length;if(left<=0)return;
+ modal('몇 개를 추가할까요?',`현재 ${F.lines.length}개 · 최대 ${MAXL}개까지 추가할 수 있어요.`,[['취소'],['추가',()=>{const n=parseInt($('#mcnt').value,10);readForm();
+  const keep=m=>{done(m,2000);$('#modal').classList.add('on');$('#mcnt').select()};
+  if(!(n>0)){keep('1 이상의 숫자를 입력해 주세요.');return}
+  if(F.lines.length+n>MAXL){keep(`운동 종목은 최대 ${MAXL}개까지 추가할 수 있어요.\n(현재 ${F.lines.length}개 · 추가 가능 ${MAXL-F.lines.length}개)`);return}
+    for(let i=0;i<n;i++)F.lines.push({r:'',u:'',n:''});renderLines();const r=$$('#rlines .lr-r');r[F.lines.length-n].focus()},1]],
+  '<input class="in cn" id="mcnt" type="number" inputmode="numeric" min="1" max="'+left+'" placeholder="개수 입력" autocomplete="off">','sm rk');
+ const i=$('#mcnt');i.focus();i.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();$('#mb .b.p').click()}}};
 $('#rlines').onclick=e=>{const x=e.target.closest('.lx');if(!x)return;readForm();F.lines.splice(+x.dataset.i,1);if(!F.lines.length)F.lines.push({r:'',u:'',n:''});renderLines();renderCard()};
 $('#rlines').addEventListener('keydown',e=>{if(e.key!=='Enter'||!e.target.matches('.lr-n,.lr-r,.lr-u'))return;e.preventDefault();
  const ins=$$('#rlines input'),i=ins.indexOf(e.target);if(i===ins.length-1){if(e.target.value.trim())addLine()}else ins[i+1].focus()});
@@ -651,7 +661,8 @@ function data(){
 /* ===== card templates ===== */
 const rtFs=n=>n<=3?14.5:n<=4?14:n<=5?13:n<=6?12:11;
 const kv=(k,v)=>`<div class="kv"><span>${k}</span><b>${esc(v)}</b></div>`;
-const rtH=(d,x=1,al='')=>`<div class="rt" style="font-size:${rtFs(d.lines.length)*x}px;${al}">${d.head?`<b>${esc(d.head)}</b>`:''}${d.sub?`<i>${esc(d.sub)}</i>`:''}<div class="rg">${d.lines.map(l=>`<span>${esc(l.a)}</span><span>${esc(l.b)}</span>`).join('')}</div></div>`;
+const rgH=ls=>{const g=a=>`<div class="rg">${a.map(l=>`<span>${esc(l.a)}</span><span>${esc(l.b)}</span>`).join('')}</div>`;if(ls.length<=10)return g(ls);const h=Math.ceil(ls.length/2);return `<div class="rg2">${g(ls.slice(0,h))}${g(ls.slice(h))}</div>`};
+const rtH=(d,x=1,al='')=>`<div class="rt" style="font-size:${rtFs(d.lines.length)*x}px;${al}">${d.head?`<b>${esc(d.head)}</b>`:''}${d.sub?`<i>${esc(d.sub)}</i>`:''}${rgH(d.lines)}</div>`;
 const rtI=(d,fs=12)=>`<div class="rt" style="font-size:${fs}px;text-align:center">${d.head?`<b style="display:block">${esc(d.head)}</b>`:''}${d.sub?esc(d.sub)+(d.lines.length?': ':''):''}${d.lines.map(l=>esc([l.a,l.b].filter(Boolean).join(' '))).join(' / ')}</div>`;
 const sc=(t,h)=>`<div class="sc" style="${t?'top:0':'bottom:0'};height:${h}px;background:linear-gradient(${t?'180deg':'0deg'},rgba(0,0,0,.72),rgba(0,0,0,0))"></div>`;
 const TPL=[
