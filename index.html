@@ -163,7 +163,11 @@ input[type=date].in{text-align:left;line-height:38px}
 .tm2 .in{text-align:center;font-variant-numeric:tabular-nums;height:42px;min-height:42px;max-height:42px;line-height:normal;box-sizing:border-box}
 .qk{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
 .qk .c{min-height:34px;font-size:11px;font-weight:700;letter-spacing:.02em;padding:2px}
-.lr{display:grid;grid-template-columns:76px 56px 1fr 40px;gap:6px;margin-bottom:6px}
+.lr{display:grid;grid-template-columns:28px 76px 56px 1fr 40px;gap:6px;margin-bottom:6px;position:relative}
+.lh{height:42px;border:0;background:none;padding:0;color:#8a8a8a;cursor:grab;touch-action:none;-webkit-user-select:none;user-select:none;display:flex;align-items:center;justify-content:center;border-radius:6px}
+.lh svg{width:18px;height:18px;display:block}.lh:focus-visible{outline:2px solid #000;outline-offset:-2px}
+.lr.drag{z-index:5;background:#fff;box-shadow:0 6px 18px rgba(0,0,0,.2);border-radius:8px;opacity:.97}.lr.drag .lh{cursor:grabbing;color:#000}
+body.dragging,body.dragging *{cursor:grabbing!important;-webkit-user-select:none;user-select:none}
 .lx{height:42px;border:1px solid #D9D9D9;background:#fff;color:#444;border-radius:8px;font-size:20px;line-height:1;padding:0}
 .lx:active{transform:scale(.97)}
 #raddl{margin-top:2px}.arow{display:grid;grid-template-columns:1fr 1fr;gap:8px}.arow .b{margin-top:2px;white-space:nowrap;letter-spacing:0;padding:0 6px}#mb .in.cn{text-align:center;margin:14px 0 4px}
@@ -625,7 +629,7 @@ const SAMPLE_LINES=[['10','Dumbbell Thruster'],['12','Push-Ups'],['15','Air Squa
 function readForm(){F.date=$('#rfd').value;F.min=$('#rfmn').value;F.sec=$('#rfsc').value;F.int=$('#rfin').value;F.head=$('#rfhd').value;F.sub=$('#rfsb').value;
  F.lines=$$('#rlines .lr').map(r=>({r:r.querySelector('.lr-r').value,u:r.querySelector('.lr-u').value,n:r.querySelector('.lr-n').value}))}
 function renderLines(){
- $('#rlines').innerHTML=F.lines.map((l,i)=>`<div class="lr"><input class="in lr-r" inputmode="numeric" maxlength="12" placeholder="횟수" value="${esc(l.r)}" autocomplete="off" aria-label="${i+1}번째 운동 횟수"><input class="in lr-u" maxlength="6" placeholder="단위" value="${esc(l.u||'')}" autocomplete="off" autocapitalize="off" aria-label="${i+1}번째 운동 단위(선택)"><input class="in lr-n" maxlength="40" placeholder="운동 이름" value="${esc(l.n)}" autocomplete="off" aria-label="${i+1}번째 운동 이름"><button type="button" class="lx" data-i="${i}" aria-label="${i+1}번째 운동 삭제">×</button></div>`).join('');
+ $('#rlines').innerHTML=F.lines.map((l,i)=>`<div class="lr"><button type="button" class="lh" aria-label="${i+1}번째 운동 순서 이동 (누른 채 드래그, 또는 위/아래 방향키)"><svg viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 5h12M3 9h12M3 13h12"/></svg></button><input class="in lr-r" inputmode="numeric" maxlength="12" placeholder="횟수" value="${esc(l.r)}" autocomplete="off" aria-label="${i+1}번째 운동 횟수"><input class="in lr-u" maxlength="6" placeholder="단위" value="${esc(l.u||'')}" autocomplete="off" autocapitalize="off" aria-label="${i+1}번째 운동 단위(선택)"><input class="in lr-n" maxlength="40" placeholder="운동 이름" value="${esc(l.n)}" autocomplete="off" aria-label="${i+1}번째 운동 이름"><button type="button" class="lx" data-i="${i}" aria-label="${i+1}번째 운동 삭제">×</button></div>`).join('');
  $('#raddl').disabled=$('#raddn').disabled=F.lines.length>=MAXL}
 function syncForm(){$('#rfd').value=F.date;$('#rfmn').value=F.min;$('#rfsc').value=F.sec;$('#rfin').value=F.int;$('#rfhd').value=F.head;$('#rfsb').value=F.sub;renderLines();syncQk()}
 function syncQk(){const v=$('#rfin').value.trim().toUpperCase();$$('#rqk .c').forEach(b=>b.classList.toggle('on',b.dataset.v===v))}
@@ -639,6 +643,25 @@ $('#raddn').onclick=()=>{readForm();const left=MAXL-F.lines.length;if(left<=0)re
     for(let i=0;i<n;i++)F.lines.push({r:'',u:'',n:''});renderLines();const r=$$('#rlines .lr-r');r[F.lines.length-n].focus()},1]],
   '<input class="in cn" id="mcnt" type="number" inputmode="numeric" min="1" max="'+left+'" placeholder="개수 입력" autocomplete="off">','sm rk');
  const i=$('#mcnt');i.focus();i.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();$('#mb .b.p').click()}}};
+/* reorder rows: drag the handle (pointer events: mouse + touch) or use arrow keys on the focused handle */
+(()=>{const box=$('#rlines');let row=null,grab=0,y=0,raf=0,pid=null,hd=null;
+ const place=()=>{if(!row)return;row.style.transform='';
+  let r=row.getBoundingClientRect(),pv=row.previousElementSibling,nx=row.nextElementSibling;
+  while(pv){const m=pv.getBoundingClientRect();if(y<m.top+m.height/2){box.insertBefore(row,pv);pv=row.previousElementSibling}else break}
+  while(nx){const m=nx.getBoundingClientRect();if(y>m.top+m.height/2){box.insertBefore(nx,row);nx=row.nextElementSibling}else break}
+  r=row.getBoundingClientRect();row.style.transform=`translateY(${y-grab-r.top}px)`};
+ const loop=()=>{if(!row)return;const h=innerHeight;if(y<70)scrollBy(0,-Math.min(16,(70-y)/4+2));else if(y>h-70)scrollBy(0,Math.min(16,(y-(h-70))/4+2));place();raf=requestAnimationFrame(loop)};
+ const end=()=>{if(!row)return;cancelAnimationFrame(raf);try{hd.releasePointerCapture(pid)}catch(_){}row.style.transform='';row.classList.remove('drag');document.body.classList.remove('dragging');row=null;
+  readForm();renderLines();renderCard()};
+ box.addEventListener('pointerdown',e=>{const h=e.target.closest('.lh');if(!h||(e.button!==undefined&&e.button!==0))return;e.preventDefault();
+  row=h.closest('.lr');hd=h;pid=e.pointerId;y=e.clientY;grab=y-row.getBoundingClientRect().top;row.classList.add('drag');document.body.classList.add('dragging');try{h.setPointerCapture(pid)}catch(_){}
+  cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)});
+ box.addEventListener('pointermove',e=>{if(row&&e.pointerId===pid){y=e.clientY;place()}});
+ box.addEventListener('pointerup',e=>{if(e.pointerId===pid)end()});box.addEventListener('pointercancel',e=>{if(e.pointerId===pid)end()});
+ box.addEventListener('keydown',e=>{const h=e.target.closest('.lh');if(!h||(e.key!=='ArrowUp'&&e.key!=='ArrowDown'))return;e.preventDefault();
+  const rows=$$('#rlines .lr'),i=rows.indexOf(h.closest('.lr')),j=i+(e.key==='ArrowUp'?-1:1);if(j<0||j>=rows.length)return;
+  readForm();[F.lines[i],F.lines[j]]=[F.lines[j],F.lines[i]];renderLines();renderCard();$$('#rlines .lh')[j].focus()});
+})();
 $('#rlines').onclick=e=>{const x=e.target.closest('.lx');if(!x)return;readForm();F.lines.splice(+x.dataset.i,1);if(!F.lines.length)F.lines.push({r:'',u:'',n:''});renderLines();renderCard()};
 $('#rlines').addEventListener('keydown',e=>{if(e.key!=='Enter'||!e.target.matches('.lr-n,.lr-r,.lr-u'))return;e.preventDefault();
  const ins=$$('#rlines input'),i=ins.indexOf(e.target);if(i===ins.length-1){if(e.target.value.trim())addLine()}else ins[i+1].focus()});
